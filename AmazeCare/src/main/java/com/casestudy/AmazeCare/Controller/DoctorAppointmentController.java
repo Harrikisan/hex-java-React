@@ -1,0 +1,37 @@
+package com.casestudy.AmazeCare.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.casestudy.AmazeCare.Model.DoctorAppointment;
+import com.casestudy.AmazeCare.Service.DoctorAppointmentService;
+
+@RestController
+@RequestMapping("/api/doctor/appointment")
+public class DoctorAppointmentController {
+
+	@Autowired
+	private DoctorAppointmentService doctorAppointmentService;
+	
+	/*
+	 * AIM: add appointment
+	 * PATH: api/doctor/appointment/add
+	 * METHOD: POST
+	 * PARAMS:patient_id,doctor_id,schedule_id <- path variables, doctorAppointment request body
+	 * EXPECTED: DoctorAppointment
+	 * */
+	@PostMapping("/add/{patient_id}/{doctor_id}/{schedule_id}")
+	public ResponseEntity<?> addDoctorAppointment(@PathVariable int patient_id,
+												  @PathVariable int doctor_id,
+												  @PathVariable int schedule_id,
+												  @RequestBody DoctorAppointment doctorAppointment){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(doctorAppointmentService.addDoctorAppointment(patient_id,doctor_id,schedule_id,doctorAppointment));
+	}
+}
