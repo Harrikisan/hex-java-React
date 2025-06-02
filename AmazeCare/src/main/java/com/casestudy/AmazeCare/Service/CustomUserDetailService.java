@@ -1,5 +1,6 @@
 package com.casestudy.AmazeCare.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,22 @@ import com.casestudy.AmazeCare.Repoitory.UserRepository;
 public class CustomUserDetailService implements UserDetailsService{
 
 	@Autowired
-	private UserRepository userRepository;
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		// Fetch User by given username 
-				User user = userRepository.getByUsername(username);
-				
-				// Convert your Role into Authority as spring works with authority
-				SimpleGrantedAuthority sga = new SimpleGrantedAuthority(user.getRole().toString()); 
-				
-				// Add this SimpleGrantedAuthority object into the List now 
-				List<GrantedAuthority> list = List.of(sga);
-				
-				// Convert our User to Spring's User that is UserDetails
-				org.springframework.security.core.userdetails.User springuser = 
-						new org.springframework.security.core.userdetails.User
-								(user.getUsername(), 
-								 user.getPassword(), 
-								 list);
-				
-				return springuser;
-	}
+    private UserRepository userRepository;
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.getByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toString());
+        List<GrantedAuthority> authorities = Collections.singletonList(authority);
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                authorities
+        );
+    }
 }

@@ -11,7 +11,10 @@ import com.casestudy.AmazeCare.Model.Patient;
 public interface PatientRepository extends JpaRepository<Patient, Integer>{
 
 	@Query("select p from Patient p where p.user.username=?1")
-	Patient getbyName(String name);
+	Patient getbyUsername(String name);
+
+	@Query("select p from Patient p where p.name=?1")
+	Patient getbyName(String patientName);
 	
 
 }

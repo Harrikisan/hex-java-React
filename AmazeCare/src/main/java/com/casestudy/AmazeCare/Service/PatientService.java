@@ -42,12 +42,12 @@ public class PatientService {
 	}
 
 	public Patient getName(String name) {
-		return patientRepository.getbyName(name);
+		return patientRepository.getbyUsername(name);
 	}
 
 	public Patient editPatientInfo(String username, Patient patient) {
 		// Check whether patient id already exists , or throw exception. Patient
-		Patient oldPatient = patientRepository.getbyName(username);
+		Patient oldPatient = patientRepository.getbyUsername(username);
 		// Set values for old values
 		if (patient.getName() != null)
 			oldPatient.setName(patient.getName());

@@ -12,6 +12,8 @@ import com.casestudy.AmazeCare.Exception.DoctorNotFoundException;
 import com.casestudy.AmazeCare.Exception.DoctorScheduleNotFoundException;
 import com.casestudy.AmazeCare.Exception.LabNotFoundException;
 import com.casestudy.AmazeCare.Exception.PatientNotFountException;
+import com.casestudy.AmazeCare.Exception.TestNotFoundException;
+import com.casestudy.AmazeCare.Exception.TestScheduleNotFoundException;
 
 @RestControllerAdvice
 public class GlobalException {
@@ -59,5 +61,7 @@ public class GlobalException {
 		//return the err msg
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
 	}
+	
+	
 	
 }
