@@ -28,4 +28,6 @@ public class TestScheduleController {
 	public ResponseEntity<?> add(@RequestBody TestSchedule testSchedule){
 		return ResponseEntity.status(HttpStatus.CREATED).body(testScheduleService.add(testSchedule));
 	}
+	
+	
 }

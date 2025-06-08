@@ -77,4 +77,9 @@ public class TestAppointmentController {
 	public ResponseEntity<?> getByPatientId(@PathVariable int patientId){
 		return ResponseEntity.status(HttpStatus.OK).body(testAppointmentService.getByPatientId(patientId));
 	}
+	
+	@GetMapping("/get-dates/{lab_id}/{test_id}")
+	public ResponseEntity<?> getAvailableDatesForLabTest(@PathVariable int lab_id,@PathVariable int test_id){
+		return ResponseEntity.status(HttpStatus.OK).body(testAppointmentService.getAvailableDatesForLabTest(lab_id,test_id));
+	}
 }

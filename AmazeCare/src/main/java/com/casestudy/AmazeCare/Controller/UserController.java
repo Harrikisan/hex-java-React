@@ -38,12 +38,19 @@ public class UserController {
 	
 	@GetMapping("/token")
 	public ResponseEntity<?> getToken(Principal principal) {
-		try {
-		String token =jwtUtil.createToken(principal.getName()); 
-		return ResponseEntity.status(HttpStatus.OK).body(token);
-		}
-		catch(Exception e){
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(userService.getToken(principal));
+	}
+	
+	/*
+	 * AIM: Get User
+	 * PATH: api/user/details
+	 * PARAMS: principal
+	 * METHOD: GET
+	 * EXPECTED: User
+	 * */
+	@GetMapping("/details")
+	public ResponseEntity<?> getLoggedInUserDetails(Principal principal){
+		String username=principal.getName();
+		return ResponseEntity.status(HttpStatus.OK).body(userService.getUserInfo(username));
 	}
 }

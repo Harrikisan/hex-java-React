@@ -1,17 +1,21 @@
 package com.casestudy.AmazeCare.Repoitory;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import com.casestudy.AmazeCare.Enum.Slot;
 import com.casestudy.AmazeCare.Model.DoctorSchedule;
+
+import jakarta.transaction.Transactional;
 
 public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, Integer> {
 
 	@Query("select ds from DoctorSchedule ds where ds.doctor.id=?1")
-	Optional<List<DoctorSchedule>> getByDoctor(int doctor_id);
+	List<DoctorSchedule> getByDoctor(int doctor_id);
 
 	@Query("""
 		    SELECT ds FROM DoctorSchedule ds 
@@ -19,11 +23,29 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, 
 		    AND ds.id NOT IN (
 		        SELECT da.doctorSchedule.id FROM DoctorAppointment da 
 		        WHERE da.doctor.id = ?1 
-		        GROUP BY da.doctorSchedule.id 
+		        GROUP BY da.date , da.doctorSchedule.id 
 		        HAVING COUNT(da.id) >= 2
 		    )
 		""")
 		List<DoctorSchedule> getAvailableSlots(int doctorId);
+
+	@Query("""
+		    SELECT ds.slot FROM DoctorSchedule ds 
+		    WHERE ds.doctor.id = ?1 
+		    AND ds.id NOT IN (
+		        SELECT da.doctorSchedule.id FROM DoctorAppointment da 
+		        WHERE da.doctor.id = ?1 AND da.date = ?2 
+		        GROUP BY da.doctorSchedule.id 
+		        HAVING COUNT(da.id) >= 2
+		    )
+		""")
+		List<Slot> getAvailableSlotsForDate(int doctor_id, LocalDate date);
+
+
+    @Modifying
+    @Transactional
+	@Query("delete from DoctorSchedule d where d.id=?1")
+	void deleteSchedule(int schedule_id);
 
 
 }

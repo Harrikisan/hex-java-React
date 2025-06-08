@@ -1,5 +1,7 @@
 package com.casestudy.AmazeCare.Service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.casestudy.AmazeCare.Exception.LabNotFoundException;
@@ -28,6 +30,10 @@ public class TestService {
 		test.setLab(lab);
 		// save to db
 		return testRepository.save(test);
+	}
+
+	public List<Test> getAll() {
+		return testRepository.findAll();
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.casestudy.AmazeCare.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -87,6 +89,17 @@ public class TestAppointmentService {
 	public List<TestAppointment> getByPatientId(int patientId) {
 		return testAppointmentRepository.getByPatientId(patientId).
 				orElseThrow(()->new PatientNotFountException("No appointments by Patient ID"));
+	}
+
+
+	public List<LocalDate> getAvailableDatesForLabTest(int lab_id,int test_id) {
+		List<LocalDate> dates=new ArrayList<>();
+		for(int i=0;i<21;i++) {
+			LocalDate date=LocalDate.now().plusDays(i);
+			if(testAppointmentRepository.getAvailableDatesForLabTest(lab_id,test_id).size()<8) dates.add(date);
+		}
+		
+		return dates;
 	}
 
 	
