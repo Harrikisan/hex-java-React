@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "303d8ac7-3f09-4902-8ac3-84710782d165",
+		"name": "CodingChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33630056"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "localhost:8080/api/user/token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/user/token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "localhost:8080/api/doctor/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYXJyaUBnbWFpbC5jb20iLCJpYXQiOjE3NDk0NDU1MTIsImV4cCI6MTc0OTQ4ODcxMn0.JCQnEp0GfTLrtZnAFmDyNJtdEFm2xx8_ut6Z2rVbQS8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Harri\",\r\n    \"speciality\":\"ORTHO\",\r\n    \"user\":{\r\n        \"username\":\"harri@gmail.com\",\r\n        \"password\":\"harri@123\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/doctor/add",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"doctor",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "localhost:8080/api/history/add",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient\": {\r\n    \"name\": \"Raju\",\r\n    \"age\": 44,\r\n    \"user\": {\r\n      \"username\": \"raju@gmail.com\",\r\n      \"password\": \"raju@123\"\r\n    }\r\n  },\r\n  \"medicalHistory\": {\r\n    \"illness\": \"Diabetes\",\r\n    \"numberOfYears\": 5,\r\n    \"currentMedication\": \"Metformin 500mg daily\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/history/add",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"history",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/api/patient/getByDoctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYXJyaUBnbWFpbC5jb20iLCJpYXQiOjE3NDk0NDgxNjAsImV4cCI6MTc0OTQ5MTM2MH0.KEjEXkWOXhY0oaKTbxA5uSjtB5mHGCysNwSsUflrDoY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/patient/getByDoctor",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"patient",
+								"getByDoctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/api/history/get?record_id=1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/history/get?record_id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"history",
+								"get"
+							],
+							"query": [
+								{
+									"key": "record_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "localhost:8080/api/appointment/add/1/1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/appointment/add/1/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"appointment",
+								"add",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -41,6 +41,7 @@ public class SecurityConfig {
 					
 					//medical history
 					.requestMatchers("/api/history/add").permitAll()
+					.requestMatchers("/api/history/get").permitAll()
 					
 					//appointment
 					.requestMatchers("/api/appointment/add/*/*").permitAll()
