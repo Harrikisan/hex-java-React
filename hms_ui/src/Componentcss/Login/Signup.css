@@ -1,0 +1,90 @@
+.signup_card {
+  width: 600px;
+  margin: 10px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #ffffff;
+  z-index: 2;
+}
+
+/* Header style */
+.signup_card .card-header {
+  background-color: #4A628A; /* color-1 */
+  color: #DFF2EB; /* text-color-4 */
+  padding: 10px;
+  text-align:left;
+}
+
+/* Body content */
+.signup_card .card-body {
+  background-color: #B9E5E8; /* color-3 */
+  padding: 24px;
+}
+
+/* Form labels */
+.signup_card label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  color: #4A628A; /* text-color-1 */
+}
+
+/* Inputs */
+.signup_card input,
+.signup_card select,
+.signup_card textarea {
+  width: 100%;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #DFF2EB; /* color-4 */
+  color: #4A628A;
+  margin-bottom: 10px;
+}
+
+/* Button */
+.signup_card .btn-submit {
+  background-color: #4A628A; /* color-1 */
+  color: #DFF2EB; /* text-color-4 */
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.signup_card .btn-submit:hover {
+  background-color: #4A628A;
+}
+
+/* Footer */
+.signup_card .card-footer {
+  background-color: #7AB2D3; /* color-2 */
+  padding: 12px;
+  text-align: left;
+}
+
+/* Responsive alert message */
+.signup_card .alert {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Optional alert color consistency */
+.alert-primary {
+  background-color: #DFF2EB;
+  color: #4A628A;
+}
+
+.alert-danger {
+  background-color: #ffcdd2;
+  color: #b71c1c;
+}

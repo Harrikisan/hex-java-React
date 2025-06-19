@@ -1,0 +1,87 @@
+.login_card {
+  width: 500px; /* was 350px */
+  margin: 50px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+/* Optional utility class to control spacing between labels */
+.line-height {
+  line-height: 2;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+/* Color palette based on your previous usage */
+.color-1 {
+  background-color: #4A628A;
+}
+
+.color-2 {
+  background-color: #7AB2D3;
+}
+
+.color-3 {
+  background-color: #B9E5E8;
+}
+
+.color-4 {
+  background-color: #DFF2EB;
+}
+
+.text-color-1 {
+  color: #4A628A;
+}
+
+.text-color-2 {
+  color: #7AB2D3;
+}
+
+.text-color-3 {
+  color: #B9E5E8;
+}
+
+.text-color-4 {
+  color: #DFF2EB;
+}
+
+.text {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Optional button improvement */
+.btn.color-1 {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn.color-1:hover {
+  background-color: #4A628A; /* darker shade for hover */
+}
+
+.signup-prompt {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  color: #4A628A; /* matching text-color-1 */
+}
+
+.signup-link {
+  color: #4A628A; /* text-color-2 */
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+  color: #3e5175; /* slightly darker hover shade */
+}

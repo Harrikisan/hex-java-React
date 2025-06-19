@@ -1,0 +1,50 @@
+.appointment-table-container {
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #DFF2EB;
+  overflow-x: auto;
+}
+
+.appointment-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  background-color: #B9E5E8;
+  text-align: center;
+  color: #4A628A; 
+  font-weight: normal; 
+}
+
+.appointment-table thead tr {
+  color: #4A628A;
+  font-weight: normal;
+}
+
+.appointment-table th {
+  padding: 15px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #4A628A;    
+}
+
+.appointment-table td {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #4A628A;
+}
+
+.edit-btn {
+  padding: 7px 24px;
+  background-color: #4A628A;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.edit-btn:hover {
+  background-color: #3b4f6f;
+}

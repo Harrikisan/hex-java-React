@@ -1,0 +1,38 @@
+.sidebar {
+  width: calc(35vh);
+  background-color: #7AB2D3; /* light blue */
+  padding: 20px;
+  height: calc(180vh); /* Adjust based on your layout */
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.menu-item:hover {
+  background-color: #4A628A;
+}
+
+.menu-item.active {
+  background-color: #4A628A;
+}

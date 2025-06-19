@@ -1,0 +1,45 @@
+.navbar {
+  background-color: #4A628A; /* dark blue */
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.navbar-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-link {
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover {
+  color: #B9E5E8;
+}
+
+.navbar-profile {
+  background-color: #B9E5E8; /* lightest blue */
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  color: #4A628A;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.profile-icon {
+  margin-left: 8px;
+}

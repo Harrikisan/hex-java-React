@@ -1,0 +1,123 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #eaf7f7;
+}
+
+.doctor-search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #B9E5E8;
+    padding: 7px 10px;
+    border-radius: 12px;
+    width: fit-content;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.field-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-label {
+    color: #4A628A;
+    min-width: 80px;
+}
+
+.dropdown-input,
+.dropdown-select {
+    padding: 5px 5px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    width: 180px;
+}
+
+.doctor-card {
+    background-color: #B9E5E8;
+    border-radius: 20px;
+    padding: 20px;
+    width: 250px;
+    color: #4A628A;
+    z-index: 1;
+}
+
+
+.doctor-image {
+    width: 180px;
+    height: 180px;
+    background-color: #DFF2EB;
+    border-radius: 12px;
+}
+
+.doctor-info p {
+    margin: 6px 0;
+    font-weight: normal; /* <-- Make font normal */
+}
+
+.doctor-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.doctor-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.button {
+  background-color: #4A628A;
+  color: #DFF2EB;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #3a4f70;
+  transform: scale(1.03);
+}
+
+.pagination-arrows {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.arrow-button {
+    background-color: #4A628A;
+    color: #DFF2EB;
+    border: none;
+    padding: 8px 16px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.arrow-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.arrow-button:hover:not(:disabled) {
+    background-color: #4A628A;
+}
+
+.page-number {
+    font-size: 16px;
+    font-weight: 500;
+}

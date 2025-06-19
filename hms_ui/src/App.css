@@ -1,0 +1,58 @@
+/* Reset default browser styles and use border-box */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden; /* Remove horizontal scrollbar */
+  background-color: #B9E5E8; /* light background as in your image */
+}
+
+/* Container holding all components */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Main content: sidebar + component area */
+.main-content {
+  display: flex;
+  flex: 1;
+  height: 200%;
+}
+
+/* Right section where routed components or content go */
+.content-area {
+  position: relative;
+  flex: 1;
+  padding: 20px;
+  background-color: #EAF9F6;
+  overflow: hidden;
+}
+
+/* Background image centered and behind all content */
+.background-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+  width: 60%;
+  height: auto;
+  z-index: 0;
+  pointer-events: none; /* Prevent click interference */
+}
+
+.overlay-content {
+  position: relative;
+  z-index: -1;
+}
+
+
