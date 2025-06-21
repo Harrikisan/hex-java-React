@@ -9,7 +9,7 @@ import PatientDashBoard from "./Components/Patient/PatientDashboard";
 import NurseDashBoard from "./Components/Nurse/NurseDashboard";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import BookAppointment from "./Components/Patient/BookAppointment";
-import EditPersonalInfo from "./Components/Patient/EditPersonalInfo";
+import AppointmentHistory from "./Components/Patient/AppointmentHistory";
 import MedicalRecord from "./Components/Patient/MedicalRecord";
 import PatientProfile from "./Components/Patient/PatientProfile";
 import TrackAppointment from "./Components/Patient/TrackAppointment";
@@ -45,7 +45,7 @@ function App() {
               <Route path="/patient" >
                 <Route index element={<PatientDashBoard />} />
                 <Route path="bookAppointment" element={<BookAppointment />} />
-                <Route path="editPersonalInfo" element={<EditPersonalInfo />} />
+                <Route path="appointmenthistory" element={<AppointmentHistory />} />
                 <Route path="medicalRecord" element={<MedicalRecord />} />
                 <Route path="patientProfile" element={<PatientProfile />} />
                 <Route path="trackAppointment" element={<TrackAppointment />} />

@@ -1,20 +1,17 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../../Componentcss/Basic/Sidebar.css';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function Sidebar() {
-    const token=localStorage.getItem('token');
-    const role =localStorage.getItem('role');
+    const [role, setRole] = useState("")
     const navigate = useNavigate();
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
 
-    useEffect(()=>{
-     if(token!=null || token!=undefined){
-        
-     }   
+    useEffect(() => {
+        setRole(localStorage.getItem('role'))
     })
 
     const getSidebar = () => {
@@ -26,13 +23,18 @@ function Sidebar() {
                         <li className={`menu-item ${isActive("/patient/bookAppointment") ? "active" : ""}`} onClick={() => navigate("/patient/bookAppointment")}>Book Appointment</li>
                         <li className={`menu-item ${isActive("/patient/trackAppointment") ? "active" : ""}`} onClick={() => navigate("/patient/trackAppointment")}>Track Appointment</li>
                         <li className={`menu-item ${isActive("/patient/medicalRecord") ? "active" : ""}`} onClick={() => navigate("/patient/medicalRecord")}>Medical Records</li>
-                        <li className={`menu-item ${isActive("/patient/editPersonalInfo") ? "active" : ""}`} onClick={() => navigate("/patient/editPersonalInfo")}>Edit Personal Info</li>
+                        <li className={`menu-item ${isActive("/patient/appintmenthistory") ? "active" : ""}`} onClick={() => navigate("/patient/appointmenthistory")}>AppointmnetHistory</li>
                     </ul>
                 );
-            
+
 
             default:
-                return <p>No Sidebar available for this role</p>;
+                return (
+                    <ul className="sidebar-menu">
+                        <li className={`menu-item ${isActive("/") ? "active" : ""}`} onClick={() => navigate("/")}>Home</li>
+                        <li className={`menu-item ${isActive("/patient/bookAppointment") ? "active" : ""}`} onClick={() => navigate("/patient/bookAppointment")}>Book Appointment</li>
+                    </ul>
+                );
         }
     };
 

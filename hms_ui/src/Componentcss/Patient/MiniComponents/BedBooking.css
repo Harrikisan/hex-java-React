@@ -62,3 +62,32 @@
 .btn.color-1:hover {
   background-color: #3e5175;
 }
+
+.dropdown-container {
+    display: flex;
+    align-items: center;
+    background-color: #B9E5E8;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.dropdown-label {
+    margin-right: 10px;
+    color: #4A628A;
+    font-weight: 500;
+}
+
+.dropdown-select {
+    padding: 7px 50px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    color:#4A628A;
+}
+select.form-control.color-4 {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}

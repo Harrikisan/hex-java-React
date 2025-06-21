@@ -23,10 +23,16 @@ function DoctorListing() {
     }
 
     // Fetch when page changes
+    // 1. Call API when page or size changes
     useEffect(() => {
         getAllDoctors(dispatch)({ page, size });
+    }, [dispatch, page, size]);
+
+    // 2. Update local list when doctors change
+    useEffect(() => {
         setDoctorList(allDoctors);
-    }, [dispatch, page, size,allDoctors]);
+    }, [allDoctors]);
+
 
 
     const getDoctors = () => {

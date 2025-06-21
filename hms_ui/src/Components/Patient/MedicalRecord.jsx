@@ -8,7 +8,7 @@ function TrackAppointment() {
     const navigate = useNavigate();
     const token = useSelector(state => state.user.token);
     const role = useSelector(state => state.user.role);
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("Doctor");
     const checkLogin = () => {
 
 

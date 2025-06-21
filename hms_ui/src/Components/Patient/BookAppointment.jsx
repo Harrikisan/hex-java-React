@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import '../../Componentcss/Patient/BookAppointment.css'
 import DoctorListing from "./MiniComponents/DoctorListing";
 import BedBooking from "./MiniComponents/BedBooking";
+import LabBooking from "./MiniComponents/LabBooking";
 
 function BookAppointment() {
-    const navigate = useNavigate();
     const token = useSelector(state => state.user.token);
     const role = useSelector(state => state.user.role);
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("Doctor");
+
+    
 
     return (
         <div>
@@ -23,7 +25,6 @@ function BookAppointment() {
                             onChange={(e) => setCategory(e.target.value)}
                             className="dropdown-select"
                         >
-                            <option value="">Select</option>
                             <option value="Doctor">Doctor Booking</option>
                             <option value="Bed">Bed Booking</option>
                             <option value="Test">Test Booking</option>
@@ -35,6 +36,9 @@ function BookAppointment() {
                 }
                 {
                     category=="Bed"?<BedBooking/>:""
+                }
+                {
+                    category=="Test"?<LabBooking/>:""
                 }
             </div>
         </div>

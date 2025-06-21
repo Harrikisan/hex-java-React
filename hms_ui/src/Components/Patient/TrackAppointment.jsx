@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import '../../Componentcss/Patient/BookAppointment.css'
 import DoctorAppointment from "./MiniComponents/DoctorAppointment";
+import BedAppointment from "./MiniComponents/BedAppointment";
+import TestAppointment from "./MiniComponents/TestAppointment";
 
 function TrackAppointment() {
     const navigate = useNavigate();
     const token = useSelector(state => state.user.token);
     const role = useSelector(state => state.user.role);
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("Doctor");
     const checkLogin = () => {
 
 
@@ -38,6 +40,12 @@ function TrackAppointment() {
                 </div>
                 {
                     category=="Doctor"?<DoctorAppointment/>:""
+                }
+                {
+                    category=="Bed"?<BedAppointment/>:""
+                }
+                {
+                    category=="Test"?<TestAppointment/>:""
                 }
             </div>
         </div>

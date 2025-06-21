@@ -2,8 +2,10 @@
 
 const initializeState={
     username:"",
+    token:"",
     role:"",
-    token:""
+    login:false,
+    userid:""
 }
 
 const UserReducer=(state=initializeState,action)=>{
@@ -11,13 +13,18 @@ const UserReducer=(state=initializeState,action)=>{
     if(action.type=== "SET_USER_DETAILS"){
         localStorage.setItem('token',action.payload.token)
         localStorage.setItem('role',action.payload.role)
+        localStorage.setItem('login',action.payload.login)
+        localStorage.setItem('userId',action.payload.userId)
+        localStorage.setItem('username',action.payload.username)
         let user=action.payload
         console.log(user)
         return{
             ...state,
             username: user.username,
             role: user.role,
-            token:user.token
+            token:user.token,
+            login:user.login,
+            userId:user.userId
         }
     }
 

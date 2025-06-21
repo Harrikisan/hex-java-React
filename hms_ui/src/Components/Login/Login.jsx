@@ -29,6 +29,7 @@ function Login() {
       setMsg('Login Successful')
       let token = response.data.body
       localStorage.setItem('token',token)
+      localStorage.setItem('name',username)
       getDashboard(token)
     } catch (error) {
       console.error(error)
@@ -44,13 +45,15 @@ function Login() {
       })
       const user = {
         username: response.data.user.username,
+        token:token,
         role: response.data.user.role,
-        token: token
+        login:true,
+        userId:response.data.id
       }
-      
+      console.log(response.data)
       setUserDetails(dispatch)(user)
 
-      console.log(response.data.user.role)
+      
       let role = response.data.user.role;
 
       switch (role) {
