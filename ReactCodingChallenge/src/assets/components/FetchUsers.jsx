@@ -167,19 +167,19 @@ function FetchUsers() {
                                 <div>
                                     <label>Enter Name</label>
                                     <input className="form-control"
-                                        onChange={($e) => setName($e.target.value)} />
+                                        onChange={($e) => setName($e.target.value)} required/>
                                 </div>
                                 <div>
                                     <label>Enter email</label>
                                     <input className="form-control"
-                                        onChange={($e) => setEmail($e.target.value)} />
+                                        onChange={($e) => setEmail($e.target.value)} required/>
                                 </div>
                                 <div>
                                     <label>Enter gender</label>
                                     <select className="form-control" onChange={($e) => setGender($e.target.value)}>
                                         <option>select</option>
                                         <option value={'male'}>male</option>
-                                        <option value={'female'}>female</option>
+                                        <option value={'female'}>female</option> 
                                     </select>
                                 </div>
                                 <div>
@@ -207,12 +207,12 @@ function FetchUsers() {
                                 <div>
                                     <label>Enter Name</label>
                                     <input className="form-control" value={name}
-                                        onChange={($e) => setName($e.target.value)} />
+                                        onChange={($e) => setName($e.target.value)} required/>
                                 </div>
                                 <div>
                                     <label>Enter email</label>
                                     <input className="form-control" value={email}
-                                        onChange={($e) => setEmail($e.target.value)} />
+                                        onChange={($e) => setEmail($e.target.value)} required/>
                                 </div>
                                 <div>
                                     <label>Enter gender</label>
