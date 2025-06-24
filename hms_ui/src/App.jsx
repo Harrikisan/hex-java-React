@@ -15,6 +15,7 @@ import PatientProfile from "./Components/Patient/PatientProfile";
 import TrackAppointment from "./Components/Patient/TrackAppointment";
 import Home from "./Components/Basic/Home";
 import Signup from "./Components/Login/Signup";
+import DoctorBooking from "./Components/Patient/MiniComponents/DoctorBooking";
 
 
 function App() {
@@ -49,6 +50,8 @@ function App() {
                 <Route path="medicalRecord" element={<MedicalRecord />} />
                 <Route path="patientProfile" element={<PatientProfile />} />
                 <Route path="trackAppointment" element={<TrackAppointment />} />
+                <Route path="doctorBooking/:id" element={<DoctorBooking />} />
+
               </Route>
 
               {/* Nurse routes */}

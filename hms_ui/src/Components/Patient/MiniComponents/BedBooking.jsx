@@ -25,10 +25,6 @@ function BedBooking() {
 
   
   const getPatientById = async (id) => {
-    // const response = await axios.get(`http://localhost:8080/api/patient/get-by-id/${id}`, {
-    //   headers: { Authorization: 'Bearer ' + token }
-    // });
-    // console.log(response.data);
     getPatientDetailsById(dispatch)(id);
     let patient=useSelector(state=>state.patient)
     console.log(patient)
@@ -77,36 +73,34 @@ function BedBooking() {
       console.error("Error fetching beds:", error);
     }
   };
+useEffect(() => {
+  if (!login || role !== "PATIENT") {
+    navigate("/login");
+  }
 
-  useEffect(() => {
-    if (!login || role !== "PATIENT") {
-      navigate("/login");
+  getPatientDetails(dispatch);
+
+  const getWard = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/ward/all', {
+        headers: { Authorization: 'Bearer ' + token },
+      });
+      const temparr = response.data.map(item => item.ward_number);
+      setWard(temparr);
+    } catch (error) {
+      console.error("Error fetching wards:", error);
     }
+  };
+  getWard();
+}, []);
 
-    const getData = () => {
-      getPatientDetails(dispatch);
-      // console.log(patient.patient)
-      setPatientId(patient.id);
-      setPatientName(patient.name);
-      setUsername(patient.user.username);
-
-
-      const getWard = async () => {
-        try {
-          const response = await axios.get('http://localhost:8080/api/ward/all', {
-            headers: { Authorization: 'Bearer ' + token },
-          });
-          const temparr = response.data.map(item => item.ward_number);
-          setWard(temparr);
-        } catch (error) {
-          console.error("Error fetching wards:", error);
-        }
-      };
-      getWard();
-    };
-
-    getData();
-  }, []);
+useEffect(() => {
+  if (patient?.id) {
+    setPatientId(patient.id);
+    setPatientName(patient.name);
+    setUsername(patient.user.username);
+  }
+}, [patient]);
 
   useEffect(() => {
     if (wardNo) {

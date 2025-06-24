@@ -31,7 +31,6 @@ function TrackAppointment() {
                             onChange={(e) => setCategory(e.target.value)}
                             className="dropdown-select"
                         >
-                            <option value="">Select</option>
                             <option value="Doctor">Doctor Appointment</option>
                             <option value="Bed">Bed Appointment</option>
                             <option value="Test">Test Appointment</option>

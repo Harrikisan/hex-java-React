@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../../Componentcss/Patient/MiniComponents/DoctorListing.css";
 import { getAllDoctors } from "../../../store/Actions/DoctorActions";
+import { useNavigate } from "react-router-dom";
 
 function DoctorListing() {
     const dispatch = useDispatch();
@@ -11,24 +12,21 @@ function DoctorListing() {
     const [doctorList, setDoctorList] = useState([]);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
-
+    const navigate=useNavigate();
     const allDoctors = useSelector(state => state.doctors.doctors || []);
 
     const checkLogin = () => {
 
 
-        if (token == null || token == undefined || token == "" || role !== "PATIENT") {
+        if (!localStorage.getItem('login') ) {
             navigate("/login");
         }
     }
 
-    // Fetch when page changes
-    // 1. Call API when page or size changes
     useEffect(() => {
         getAllDoctors(dispatch)({ page, size });
     }, [dispatch, page, size]);
 
-    // 2. Update local list when doctors change
     useEffect(() => {
         setDoctorList(allDoctors);
     }, [allDoctors]);
@@ -92,7 +90,8 @@ function DoctorListing() {
             <div className="doctor-grid">
                 {doctorList.length > 0 ? (
                     doctorList.map((d, index) => (
-                        <div className="doctor-card" key={index}>
+                        <div className="doctor-card" key={index} 
+                            onClick={()=>{checkLogin();navigate(`/patient/doctorBooking/${d.id}`)}}>
                             <div className="doctor-image"></div>
                             <div className="doctor-info">
                                 <p><strong>Name:</strong> {d.name}</p>
