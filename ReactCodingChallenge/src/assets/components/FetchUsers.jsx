@@ -12,6 +12,7 @@ function FetchUsers() {
     const [edit, setEdit] = useState(false)
     const [add, setAdd] = useState(false)
     const [id, setId] = useState('')
+
     useEffect(() => {
         getUsers();
     }, []);
@@ -96,9 +97,14 @@ function FetchUsers() {
             setId('')
             // console.log(response.data)
             const user = response.data;
-            const tempArr = users.map(u =>
-                u.id === user.id ? user : u
-            );
+            const tempArr = [];
+            users.forEach(u => {
+                if (u.id === user.id) {
+                    tempArr.push(user);
+                } else {
+                    tempArr.push(u);
+                }
+            });
             setUsers(tempArr)
             setMsg("Update Succeffful")
             setEdit(false)
@@ -167,19 +173,19 @@ function FetchUsers() {
                                 <div>
                                     <label>Enter Name</label>
                                     <input className="form-control"
-                                        onChange={($e) => setName($e.target.value)} required/>
+                                        onChange={($e) => setName($e.target.value)} required />
                                 </div>
                                 <div>
                                     <label>Enter email</label>
                                     <input className="form-control"
-                                        onChange={($e) => setEmail($e.target.value)} required/>
+                                        onChange={($e) => setEmail($e.target.value)} required />
                                 </div>
                                 <div>
                                     <label>Enter gender</label>
                                     <select className="form-control" onChange={($e) => setGender($e.target.value)}>
                                         <option>select</option>
                                         <option value={'male'}>male</option>
-                                        <option value={'female'}>female</option> 
+                                        <option value={'female'}>female</option>
                                     </select>
                                 </div>
                                 <div>
@@ -207,12 +213,12 @@ function FetchUsers() {
                                 <div>
                                     <label>Enter Name</label>
                                     <input className="form-control" value={name}
-                                        onChange={($e) => setName($e.target.value)} required/>
+                                        onChange={($e) => setName($e.target.value)} required />
                                 </div>
                                 <div>
                                     <label>Enter email</label>
                                     <input className="form-control" value={email}
-                                        onChange={($e) => setEmail($e.target.value)} required/>
+                                        onChange={($e) => setEmail($e.target.value)} required />
                                 </div>
                                 <div>
                                     <label>Enter gender</label>
