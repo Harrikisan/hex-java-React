@@ -24,6 +24,8 @@ public class TestAppointment {
 	private int id;
 	
 	private LocalDate date;
+	@Column(length = 1000)
+	private String Reason;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "patient_type")
@@ -78,8 +80,17 @@ public class TestAppointment {
 	public void setStatus(AppointmentStatus status) {
 		this.status = status;
 	}
+	
 
 	
+
+	public String getReason() {
+		return Reason;
+	}
+
+	public void setReason(String reason) {
+		Reason = reason;
+	}
 
 	public Doctor getDoctor() {
 		return doctor;

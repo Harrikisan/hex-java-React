@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.casestudy.AmazeCare.Enum.AppointmentStatus;
 import com.casestudy.AmazeCare.Exception.AppointmentNotFoundException;
 import com.casestudy.AmazeCare.Exception.DoctorNotFoundException;
 import com.casestudy.AmazeCare.Exception.LabNotFoundException;
@@ -54,8 +55,11 @@ public class TestAppointmentService {
 		Patient patient=patientRepository.findById(patientId)
 				.orElseThrow(()->new PatientNotFountException("Patient Id not found"));
 		//Fetch doctor
-		Doctor doctor=doctorRepository.findById(doctorId)
+		Doctor doctor=null;
+		if(doctorId!=0) {  
+		doctor=doctorRepository.findById(doctorId)
 				.orElseThrow(()->new DoctorNotFoundException("Doctor Id not found"));
+		}
 		//Fetch lab
 		Lab lab=labRepository.findById(labId).orElseThrow(()->new LabNotFoundException("Lab ID not found"));
 		//Fetch test
@@ -70,6 +74,7 @@ public class TestAppointmentService {
 		testAppointment.setLab(lab);
 		testAppointment.setTest(test);
 		testAppointment.setSchedule(testSchedule);
+		testAppointment.setStatus(AppointmentStatus.APPOROVED);
 		//Add to db
 		return testAppointmentRepository.save(testAppointment);
 	}
@@ -86,8 +91,9 @@ public class TestAppointmentService {
 	}
 
 
-	public List<TestAppointment> getByPatientId(int patientId) {
-		return testAppointmentRepository.getByPatientId(patientId).
+	public List<TestAppointment> getByPatientId(String username) {
+		Patient patient=patientRepository.getbyUsername(username);
+		return testAppointmentRepository.getByPatientId(patient.getId()).
 				orElseThrow(()->new PatientNotFountException("No appointments by Patient ID"));
 	}
 
@@ -96,7 +102,7 @@ public class TestAppointmentService {
 		List<LocalDate> dates=new ArrayList<>();
 		for(int i=0;i<21;i++) {
 			LocalDate date=LocalDate.now().plusDays(i);
-			if(testAppointmentRepository.getAvailableDatesForLabTest(lab_id,test_id).size()<8) dates.add(date);
+			if(testAppointmentRepository.getAvailableDatesForLabTest(lab_id,test_id,date).size()<8) dates.add(date);
 		}
 		
 		return dates;

@@ -1,5 +1,7 @@
 package com.casestudy.AmazeCare.Controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.casestudy.AmazeCare.Model.TestAppointment;
 import com.casestudy.AmazeCare.Service.TestAppointmentService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
 @RequestMapping("/api/test/appointment")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TestAppointmentController {
 
 	@Autowired
@@ -73,9 +78,10 @@ public class TestAppointmentController {
 	 * Expected: Test Appointment
 	 * METHOD: POST
 	 */
-	@GetMapping("/get-by-patien_id/{patientId}")
-	public ResponseEntity<?> getByPatientId(@PathVariable int patientId){
-		return ResponseEntity.status(HttpStatus.OK).body(testAppointmentService.getByPatientId(patientId));
+	@GetMapping("/get-by-patien_id")
+	public ResponseEntity<?> getByPatientId(Principal principal){
+		String username=principal.getName();
+		return ResponseEntity.status(HttpStatus.OK).body(testAppointmentService.getByPatientId(username));
 	}
 	
 	@GetMapping("/get-dates/{lab_id}/{test_id}")

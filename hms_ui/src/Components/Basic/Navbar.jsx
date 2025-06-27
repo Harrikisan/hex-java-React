@@ -47,7 +47,8 @@ function Navbar() {
 
   const getProfile=()=>{
     switch(role){
-      case "PATIENT": navigate('/patient/patientProfile')
+      case "PATIENT": navigate('/patient/patientProfile');break;
+      case "DOCTOR": navigate('/doctor/profile');break;
     }
   }
 

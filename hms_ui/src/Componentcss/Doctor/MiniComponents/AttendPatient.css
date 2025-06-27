@@ -1,0 +1,115 @@
+.attend-container {
+  padding: 20px;
+}
+
+.attend-box {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.attend-header {
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #4A628A; /* .color-1 */
+  padding: 12px 20px;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+}
+
+.attend-body {
+  padding: 20px;
+  background-color: #B9E5E8; 
+}
+
+.attend-group label {
+  margin-bottom: 6px;
+  display: block;
+  color: #4A628A; /* color-1 */
+}
+
+.attend-input,
+.attend-textarea {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  background-color: #DFF2EB; /* .color-3 */
+  color: #333;
+}
+
+.attend-input:focus,
+.attend-textarea:focus {
+  border-color: #7AB2D3; /* .color-2 */
+  outline: none;
+  background-color: #ffffff;
+}
+
+.attend-footer {
+  padding: 15px 20px;
+  background-color: #7AB2D3;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  text-align: right;
+}
+
+.attend-button {
+  background-color: #4A628A; /* .color-1 */
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.attend-button:hover {
+  background-color: #3a5171; /* darker shade */
+}
+
+.link{
+    color: #4A628A;
+}
+
+/* Prescription Section */
+.prescription-section {
+  margin-top: 20px;
+}
+
+.prescription-card {
+  background-color: #DFF2EB; /* subtle highlight */
+  padding: 15px 20px;
+  border-radius: 10px;
+  border-left: 5px solid #4A628A;
+  margin-bottom: 15px;
+}
+
+.prescription-card p {
+  margin: 6px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Group for checkboxes/radios */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.checkbox-group label {
+  font-size: 14px;
+  color: #4A628A;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Optional: Beautify radio/checkbox */
+.checkbox-group input[type="checkbox"],
+.checkbox-group input[type="radio"] {
+  accent-color: #4A628A;
+  width: 16px;
+  height: 16px;
+}

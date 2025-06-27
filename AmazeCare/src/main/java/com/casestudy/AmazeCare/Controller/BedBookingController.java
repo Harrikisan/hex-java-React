@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bed/appointment")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BedBookingController {
 
     @Autowired
@@ -34,9 +35,10 @@ public class BedBookingController {
         return ResponseEntity.ok(bedBookingService.getAll());
     }
 
-    @GetMapping("/by-patient/{patientId}")
-    public ResponseEntity<List<BedBooking>> getByPatientId(@PathVariable int patientId) {
-        return ResponseEntity.ok(bedBookingService.getByPatientId(patientId));
+    @GetMapping("/by-patient")
+    public ResponseEntity<List<BedBooking>> getMyBedBookings(Principal principal) {
+        String username = principal.getName(); // Assumes username is unique
+        return ResponseEntity.ok(bedBookingService.getByUsername(username));
     }
 
     @GetMapping("/by-username")

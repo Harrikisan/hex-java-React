@@ -1,7 +1,5 @@
 package com.casestudy.AmazeCare.Model;
 
-
-
 import com.casestudy.AmazeCare.Enum.Role;
 
 import jakarta.persistence.Column;

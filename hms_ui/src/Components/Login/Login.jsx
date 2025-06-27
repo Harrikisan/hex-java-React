@@ -59,6 +59,8 @@ function Login() {
       switch (role) {
         case "PATIENT":
           navigate("/patient")
+        case "DOCTOR":
+          navigate("/doctor")
       }
 
 
@@ -68,7 +70,7 @@ function Login() {
   }
 
   return (
-    <div className="card login_card">
+    <div className="card login_card header">
       <div className="card-header color-1 text text-color-4">Login</div>
 
       <div className="card-body color-3">

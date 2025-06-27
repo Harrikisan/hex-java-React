@@ -1,10 +1,12 @@
 package com.casestudy.AmazeCare.Controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.casestudy.AmazeCare.Enum.UserStatus;
 import com.casestudy.AmazeCare.Model.Doctor;
 import com.casestudy.AmazeCare.Service.DoctorService;
 
+import io.jsonwebtoken.io.IOException;
+
 @RestController
 @RequestMapping("api/doctor")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DoctorController {
 
 	@Autowired
@@ -128,4 +134,25 @@ public class DoctorController {
 		return ResponseEntity.status(HttpStatus.OK).body(doctorService.EditStatus(doctor_id,status));
 	}
 	
+	@GetMapping("/getMyPatients")
+	public ResponseEntity<?> getMypatients(Principal principal){
+		String username=principal.getName();
+		return ResponseEntity.status(HttpStatus.OK).body(doctorService.getMypatients(username));
+	}
+	
+	@GetMapping("/getTodaysAppointments")
+	public ResponseEntity<?> getTodaysAppointment(Principal principal,@RequestParam LocalDate date){
+		String username=principal.getName();
+		return ResponseEntity.status(HttpStatus.OK).body(doctorService.getTodaysAppointment(username,date));
+	}
+	@GetMapping("/profile")
+	public Doctor getMyProfile(Principal principal) {
+	    return doctorService.getByUsername(principal.getName());
+	}
+	
+	@PostMapping("/upload/profile-pic")
+    public Doctor uploadProfilePic(Principal principal, @RequestParam("file") MultipartFile file) throws java.io.IOException {
+        return doctorService.uploadProfilePic(file, principal.getName());
+    }
+
 }

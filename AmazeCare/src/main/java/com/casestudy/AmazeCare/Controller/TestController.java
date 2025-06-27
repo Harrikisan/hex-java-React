@@ -3,6 +3,7 @@ package com.casestudy.AmazeCare.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.casestudy.AmazeCare.Service.TestService;
 
 @RestController
 @RequestMapping("api/lab/test")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TestController {
 
 	@Autowired
@@ -36,5 +38,10 @@ public class TestController {
 	@GetMapping("/get-all")
 	public ResponseEntity<?> getAll(){
 		return ResponseEntity.status(HttpStatus.OK).body(testService.getAll());
+	}
+	
+	@GetMapping("/getByLab/{labId}")
+	public ResponseEntity<?> getByLabID(@PathVariable int labId){
+		return ResponseEntity.status(HttpStatus.OK).body(testService.getByLab(labId));
 	}
 }

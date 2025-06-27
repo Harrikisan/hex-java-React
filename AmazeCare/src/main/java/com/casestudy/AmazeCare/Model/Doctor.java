@@ -18,6 +18,9 @@ public class Doctor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name = "image_url")
+	private String imageUrl;
+	
 	@Column(nullable = false)
 	private String name;
 	
@@ -59,10 +62,15 @@ public class Doctor {
 	public void setUserStatus(UserStatus userStatus) {
 		this.userStatus = userStatus;
 	}
+	
 
-	
-	
-	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	public int getId() {
 		return id;

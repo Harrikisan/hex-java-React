@@ -3,6 +3,7 @@ package com.casestudy.AmazeCare.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.casestudy.AmazeCare.Service.LabService;
 
 @RestController
 @RequestMapping("api/lab")
+@CrossOrigin(origins = "http://localhost:5173")
 public class LabController {
 
 	@Autowired

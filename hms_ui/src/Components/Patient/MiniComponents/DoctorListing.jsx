@@ -6,22 +6,21 @@ import { useNavigate } from "react-router-dom";
 
 function DoctorListing() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [doctor, setDoctor] = useState("");
     const [specialization, setSpecialization] = useState("");
     const [doctorList, setDoctorList] = useState([]);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
-    const navigate=useNavigate();
+
     const allDoctors = useSelector(state => state.doctors.doctors || []);
 
     const checkLogin = () => {
-
-
-        if (!localStorage.getItem('login') ) {
+        if (!localStorage.getItem('login')) {
             navigate("/login");
         }
-    }
+    };
 
     useEffect(() => {
         getAllDoctors(dispatch)({ page, size });
@@ -30,8 +29,6 @@ function DoctorListing() {
     useEffect(() => {
         setDoctorList(allDoctors);
     }, [allDoctors]);
-
-
 
     const getDoctors = () => {
         if (doctor === "" && specialization === "") {
@@ -90,9 +87,15 @@ function DoctorListing() {
             <div className="doctor-grid">
                 {doctorList.length > 0 ? (
                     doctorList.map((d, index) => (
-                        <div className="doctor-card" key={index} 
-                            onClick={()=>{checkLogin();navigate(`/patient/doctorBooking/${d.id}`)}}>
-                            <div className="doctor-image"></div>
+                        <div className="doctor-card" key={index}
+                            onClick={() => { checkLogin(); navigate(`/patient/doctorBooking/${d.id}`); }}>
+                            <div className="doctor-image">
+                                <img
+                                    src={d.imageUrl ? `/images/${d.imageUrl}` : "/images/default-doctor.png"}
+                                    alt="Doctor"
+                                    className="doctor-thumbnail"
+                                />
+                            </div>
                             <div className="doctor-info">
                                 <p><strong>Name:</strong> {d.name}</p>
                                 <p><strong>Specialization:</strong> {d.specilization}</p>
@@ -117,7 +120,7 @@ function DoctorListing() {
                 <button
                     className="arrow-button"
                     onClick={() => setPage((prev) => prev + 1)}
-                    disabled={doctorList.length < size} // assumes last page if fewer results
+                    disabled={doctorList.length < size}
                 >
                     &#8594;
                 </button>

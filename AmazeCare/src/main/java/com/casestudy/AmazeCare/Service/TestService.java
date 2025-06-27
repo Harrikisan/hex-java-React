@@ -35,6 +35,10 @@ public class TestService {
 	public List<Test> getAll() {
 		return testRepository.findAll();
 	}
+
+	public List<Test> getByLab(int labId) {
+		return testRepository.getByLabId(labId);
+	}
 	
 	
 }

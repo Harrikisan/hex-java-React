@@ -30,3 +30,28 @@ export const getAppointments = (dispatch) => (pagination, token) => {
 
   getAppointmentByPatient();
 };
+
+export const getAppointmentsByDoctor = (dispatch) => {
+  const getAppointmentByPatient = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:8080/api/doctor/appointment/get-by-doctor',
+        {
+          headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
+        }
+      );
+
+      console.log(response.data);
+
+      dispatch({
+        type: "GET_APPOINTMENT_BY_DOCTOR",
+        payload: response.data,
+      });
+
+    } catch (error) {
+      console.error("Error fetching appointments:", error);
+    }
+  };
+
+  getAppointmentByPatient();
+};

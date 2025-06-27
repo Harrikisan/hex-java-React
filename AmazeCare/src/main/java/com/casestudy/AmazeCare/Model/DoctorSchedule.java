@@ -1,6 +1,7 @@
 package com.casestudy.AmazeCare.Model;
 
 import com.casestudy.AmazeCare.Enum.Day;
+import com.casestudy.AmazeCare.Enum.ScheduleStatus;
 import com.casestudy.AmazeCare.Enum.Slot;
 
 import jakarta.persistence.Entity;
@@ -23,6 +24,8 @@ public class DoctorSchedule {
 	
 	@Enumerated(EnumType.STRING)
 	private Slot slot;
+	
+	private ScheduleStatus status;
 	
 	
 	@ManyToOne
@@ -53,6 +56,14 @@ public class DoctorSchedule {
 	}
 
 	
+
+	public ScheduleStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ScheduleStatus status) {
+		this.status = status;
+	}
 
 	public Doctor getDoctor() {
 		return doctor;

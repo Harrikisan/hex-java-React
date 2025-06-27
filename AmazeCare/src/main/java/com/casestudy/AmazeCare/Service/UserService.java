@@ -13,7 +13,9 @@ import com.casestudy.AmazeCare.Exception.DoctorNotFoundException;
 import com.casestudy.AmazeCare.Model.Doctor;
 import com.casestudy.AmazeCare.Model.Nurse;
 import com.casestudy.AmazeCare.Model.User;
+import com.casestudy.AmazeCare.Repoitory.AdminRepository;
 import com.casestudy.AmazeCare.Repoitory.DoctorRepository;
+import com.casestudy.AmazeCare.Repoitory.NurseRepository;
 import com.casestudy.AmazeCare.Repoitory.PatientRepository;
 import com.casestudy.AmazeCare.Repoitory.UserRepository;
 import com.casestudy.AmazeCare.Util.JwtUtil;
@@ -25,14 +27,22 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	private DoctorRepository doctorRepository;
 	private PatientRepository patientRepository;
+	private NurseRepository nurseRepository;
+	private AdminRepository adminRepository;
 
 	@Autowired
 	private JwtUtil jwtUtil;
 
-	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+			DoctorRepository doctorRepository, PatientRepository patientRepository, NurseRepository nurseRepository,
+			AdminRepository adminRepository) {
 		super();
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.doctorRepository = doctorRepository;
+		this.patientRepository = patientRepository;
+		this.nurseRepository = nurseRepository;
+		this.adminRepository = adminRepository;
 	}
 
 
@@ -69,6 +79,12 @@ public class UserService {
 		case Role.DOCTOR:
 			return doctorRepository.getByUsername(username)
 			.orElseThrow(()->new DoctorNotFoundException("Account not active"));
+		case Role.NURSE:
+			return nurseRepository.getByUsername(username);
+		case Role.PATIENT:
+			return patientRepository.getbyUsername(username);
+		case Role.ADMIN:
+			return adminRepository.getByUsername(username);
 		}
 		
 		return null;

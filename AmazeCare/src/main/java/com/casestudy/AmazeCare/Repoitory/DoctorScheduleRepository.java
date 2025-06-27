@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import com.casestudy.AmazeCare.Enum.Day;
 import com.casestudy.AmazeCare.Enum.Slot;
 import com.casestudy.AmazeCare.Model.DoctorSchedule;
 
@@ -30,8 +31,8 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, 
 		List<DoctorSchedule> getAvailableSlots(int doctorId);
 
 	@Query("""
-		    SELECT ds.slot FROM DoctorSchedule ds 
-		    WHERE ds.doctor.id = ?1 
+		    SELECT ds FROM DoctorSchedule ds 
+		    WHERE ds.doctor.id = ?1 and ds.day=?3 and ds.status=AVAILABLE
 		    AND ds.id NOT IN (
 		        SELECT da.doctorSchedule.id FROM DoctorAppointment da 
 		        WHERE da.doctor.id = ?1 AND da.date = ?2 
@@ -39,7 +40,7 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, 
 		        HAVING COUNT(da.id) >= 2
 		    )
 		""")
-		List<Slot> getAvailableSlotsForDate(int doctor_id, LocalDate date);
+		List<DoctorSchedule> getAvailableSlotsForDate(int doctor_id, LocalDate date, Day day);
 
 
     @Modifying

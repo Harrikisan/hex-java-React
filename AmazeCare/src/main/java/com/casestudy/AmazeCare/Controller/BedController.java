@@ -12,6 +12,7 @@ import com.casestudy.AmazeCare.Service.BedService;
 
 @RestController
 @RequestMapping("/api/bed")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BedController {
 
     private final BedService bedService;
@@ -20,10 +21,9 @@ public class BedController {
         this.bedService = bedService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Bed> addBed(@RequestBody Bed bed) {
-        Bed savedBed = bedService.addBed(bed);
-        return new ResponseEntity<>(savedBed, HttpStatus.CREATED);
+    @PostMapping("/add/{wardId}")
+    public ResponseEntity<Bed> addBed(@PathVariable int wardId, @RequestBody Bed bed) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(bedService.addBed(wardId,bed));
     }
 
     @PutMapping("/update/{id}")

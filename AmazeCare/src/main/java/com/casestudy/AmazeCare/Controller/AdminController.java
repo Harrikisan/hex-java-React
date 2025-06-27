@@ -11,6 +11,7 @@ import com.casestudy.AmazeCare.Service.AdminService;
 
 @RestController
 @RequestMapping("/api/admin")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AdminController {
 
     @Autowired

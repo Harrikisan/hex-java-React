@@ -2,7 +2,11 @@ package com.casestudy.AmazeCare.Service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.casestudy.AmazeCare.Exception.MedicalRecordNotFoundException;
@@ -25,15 +29,18 @@ public class PrescriptionService {
 		this.medicalRecordRepository = medicalRecordRepository;
 	}
 
-	public Prescription addPrescription(int recordId, Prescription prescription) {
+    public List<Prescription> addPrescriptionsBatch(int recordId, List<Prescription> prescriptions) {
         MedicalRecord record = medicalRecordRepository.findById(recordId)
                 .orElseThrow(() -> new MedicalRecordNotFoundException("Medical record not found with ID: " + recordId));
 
-        prescription.setMedicalRecord(record);
-        return prescriptionRepository.save(prescription);
+        prescriptions.forEach(prescription -> prescription.setMedicalRecord(record));
+
+        return prescriptionRepository.saveAll(prescriptions);
     }
 
+
     public List<Prescription> getPrescriptionsByRecordId(int recordId) {
-        return prescriptionRepository.findByMedicalRecordId(recordId);
+        return prescriptionRepository.getByMedicalRecordId(recordId);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.casestudy.AmazeCare.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +18,17 @@ public class Prescription {
 	
 	private String dosage;
 	
-	private String frequency;
+	private boolean morning;
+	
+	private boolean afternoon;
+	
+	private boolean night;
+	
+	@Column(name = "before_meal")
+	private boolean beforeMeal;
+	
+	@Column(name="after_meal")
+	private boolean afterMeal;
 	
 	private String duration;
 	
@@ -48,12 +59,46 @@ public class Prescription {
 		this.dosage = dosage;
 	}
 
-	public String getFrequency() {
-		return frequency;
+	
+
+	public boolean isMorning() {
+		return morning;
 	}
 
-	public void setFrequency(String frequency) {
-		this.frequency = frequency;
+	public void setMorning(boolean morning) {
+		this.morning = morning;
+	}
+
+	public boolean isAfternoon() {
+		return afternoon;
+	}
+
+	public void setAfternoon(boolean afternoon) {
+		this.afternoon = afternoon;
+	}
+
+	public boolean isNight() {
+		return night;
+	}
+
+	public void setNight(boolean night) {
+		this.night = night;
+	}
+
+	public boolean isBeforeMeal() {
+		return beforeMeal;
+	}
+
+	public void setBeforeMeal(boolean beforeMeal) {
+		this.beforeMeal = beforeMeal;
+	}
+
+	public boolean isAfterMeal() {
+		return afterMeal;
+	}
+
+	public void setAfterMeal(boolean afterMeal) {
+		this.afterMeal = afterMeal;
 	}
 
 	public String getDuration() {

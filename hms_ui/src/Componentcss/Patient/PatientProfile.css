@@ -1,0 +1,100 @@
+/* Container */
+.profile-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Card Layout */
+.profile-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* Image Section */
+.profile-image-section {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.profile-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #ccc;
+}
+
+/* Info Section */
+.profile-info {
+  flex: 2;
+  padding: 20px;
+}
+
+.profile-info label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #4A628A;
+}
+
+.profile-info input,
+.profile-info textarea,
+.profile-info select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  font-family: 'Montserrat', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.profile-info textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.profile-info input:focus,
+.profile-info textarea:focus,
+.profile-info select:focus {
+  border-color: #4A628A;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  background-color: #4A628A;
+  color: #DFF2EB;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #3e5175;
+}
+
+.text-color-1 {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.btn.color-1 {
+  background-color: #28a745;
+}
+
+.btn.color-1:hover {
+  background-color: #218838;
+}

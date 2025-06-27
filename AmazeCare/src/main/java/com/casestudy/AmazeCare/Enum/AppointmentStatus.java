@@ -2,5 +2,5 @@ package com.casestudy.AmazeCare.Enum;
 
 public enum AppointmentStatus {
 
-	FINISHED,APPOROVED,WAITING,CANCELED;
+	FINISHED,APPOROVED,WAITING,CANCELED,REJECTED;
 }

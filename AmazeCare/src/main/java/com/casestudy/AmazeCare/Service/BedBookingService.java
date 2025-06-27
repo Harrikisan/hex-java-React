@@ -60,10 +60,6 @@ public class BedBookingService {
         return bedBookingRepository.findAll();
     }
 
-    public List<BedBooking> getByPatientId(int patientId) {
-        return bedBookingRepository.findByPatirntId(patientId);
-    }
-
     public List<BedBooking> getByUsername(String username) {
         Patient patient = patientRepository.getbyUsername(username);
         return bedBookingRepository.findByPatirntId(patient.getId());

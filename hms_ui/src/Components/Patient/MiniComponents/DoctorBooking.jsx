@@ -25,8 +25,8 @@ function DoctorBooking() {
     const login = useSelector(state => state.user.login);
     const navigate = useNavigate();
     const role = localStorage.getItem('role');
-    const { id: doctorId } = useParams();
-
+    const params = useParams();
+    const doctorId=params.id;
     const slotTimeMap = {
         "ONE": "9:00 - 10:00 AM",
         "TWO": "10:00 - 11:00 AM",

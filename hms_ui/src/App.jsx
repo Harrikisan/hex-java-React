@@ -5,6 +5,13 @@ import Login from './Components/Login/Login';
 import './App.css';
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import DoctorDashboard from "./Components/Doctor/DoctorDashboard";
+import Appointment from "./Components/Doctor/Appointment";
+import DoctorProfile from "./Components/Doctor/DoctorProfile";
+import EditSchedule from "./Components/Doctor/EditSchedule";
+import Mypatients from "./Components/Doctor/Mypatients";
+import UploadDocument from "./Components/Doctor/UploadDocument";
+import TodaysAppointments from "./Components/Doctor/TodaysAppointments";
+import AttendPatient from "./Components/Doctor/MiniComponents/AttendPatient";
 import PatientDashBoard from "./Components/Patient/PatientDashboard";
 import NurseDashBoard from "./Components/Nurse/NurseDashboard";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
@@ -16,6 +23,7 @@ import TrackAppointment from "./Components/Patient/TrackAppointment";
 import Home from "./Components/Basic/Home";
 import Signup from "./Components/Login/Signup";
 import DoctorBooking from "./Components/Patient/MiniComponents/DoctorBooking";
+import ViewMedicalRecords from "./Components/Doctor/MiniComponents/ViewMedicalRecords";
 
 
 function App() {
@@ -34,13 +42,23 @@ function App() {
 
               {/* Login Signin*/}
               <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup/>}/>
-              
+              <Route path="/signup" element={<Signup />} />
+
               {/* Home*/}
-              <Route path="/" element={<Home/>}/>
+              <Route path="/" element={<Home />} />
 
               {/* Doctor routes*/}
-              <Route path="/doctor" element={<DoctorDashboard />} />
+              <Route path="/doctor">
+                <Route index element={<DoctorDashboard />} />
+                <Route path="appointments" element={<Appointment />} />
+                <Route path="profile" element={<DoctorProfile />} />
+                <Route path="edieSchedule" element={<EditSchedule />} />
+                <Route path="mypatients" element={<Mypatients />} />
+                <Route path="mypatients/attendPatient/:patientId/:appointmentId" element={<AttendPatient />} />
+                <Route path="uploadDocument" element={<UploadDocument />} />
+                <Route path="todaysAppointments" element={<TodaysAppointments />} />
+                <Route path="viewMedicalrecords/:id" element={<ViewMedicalRecords />} />
+              </Route>
 
               {/* Patient routes */}
               <Route path="/patient" >

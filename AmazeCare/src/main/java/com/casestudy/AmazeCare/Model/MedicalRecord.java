@@ -30,7 +30,8 @@ public class MedicalRecord {
 	private Doctor doctor;
 	
 	@ManyToOne
-	private DoctorAppointment appointment;
+	private Patient patient;
+	
 
 	public int getId() {
 		return id;
@@ -72,13 +73,14 @@ public class MedicalRecord {
 		this.doctor = doctor;
 	}
 
-	public DoctorAppointment getAppointment() {
-		return appointment;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setAppointment(DoctorAppointment appointment) {
-		this.appointment = appointment;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
+	
 	
 	
 }

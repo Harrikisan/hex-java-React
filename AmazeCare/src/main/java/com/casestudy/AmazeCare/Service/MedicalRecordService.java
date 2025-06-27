@@ -1,13 +1,17 @@
 package com.casestudy.AmazeCare.Service;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.casestudy.AmazeCare.Exception.MedicalRecordNotFoundException;
+import com.casestudy.AmazeCare.Exception.PatientNotFountException;
 import com.casestudy.AmazeCare.Model.Doctor;
-import com.casestudy.AmazeCare.Model.DoctorAppointment;
 import com.casestudy.AmazeCare.Model.MedicalRecord;
 import com.casestudy.AmazeCare.Model.Patient;
 import com.casestudy.AmazeCare.Repoitory.DoctorAppointmentRepository;
@@ -35,14 +39,13 @@ public class MedicalRecordService {
 	}
 
 	// Add medical record with doctor and appointment associations
-    public MedicalRecord addMedicalRecord(MedicalRecord record, int appointmentId, int doctorId) {
-        Doctor doctor = doctorRepository.findById(doctorId)
-                .orElseThrow(() -> new MedicalRecordNotFoundException("Doctor not found with id: " + doctorId));
-        DoctorAppointment appointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new MedicalRecordNotFoundException("Appointment not found with id: " + appointmentId));
-
+    public MedicalRecord addMedicalRecord(MedicalRecord record, int patientId, String username) {
+        Doctor doctor = doctorRepository.getByUsername(username)
+                .orElseThrow(() -> new MedicalRecordNotFoundException("Doctor not found"));
+        Patient patient=patientRepository.findById(patientId)
+        		.orElseThrow(()->new PatientNotFountException("Patient not found"));
+        record.setPatient(patient);
         record.setDoctor(doctor);
-        record.setAppointment(appointment);
         record.setRecordDate(LocalDate.now());
         return medicalRecordRepository.save(record);
     }
@@ -61,7 +64,13 @@ public class MedicalRecordService {
     // Get medical records by patient's username
     public List<MedicalRecord> getMedicalRecordsByPatientUsername(String username) {
         Patient patient = patientRepository.getbyUsername(username);
-        return medicalRecordRepository.findByPatientId(patient.getId());
+        return medicalRecordRepository.findByPatientUsername(patient.getId());
+    }
+  
+    public List<MedicalRecord> getMedicalRecordsByPatientId(int patientId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MedicalRecord> recordsPage = medicalRecordRepository.findByPatientId(patientId, pageable);
+        return recordsPage.getContent();
     }
 
     // Get medical records by doctor's username
@@ -75,4 +84,6 @@ public class MedicalRecordService {
     public List<MedicalRecord> getMedicalRecordsByRecordDate(LocalDate recordDate) {
         return medicalRecordRepository.findByRecordDate(recordDate);
     }
+
+	
 }

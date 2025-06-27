@@ -1,15 +1,18 @@
 package com.casestudy.AmazeCare.Controller;
 
+
 import java.security.Principal;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,7 @@ import com.casestudy.AmazeCare.Service.DoctorScheduleService;
 
 @RestController
 @RequestMapping("api/doctor/schedule")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DoctorScheduleController {
 
 	@Autowired
@@ -30,12 +34,13 @@ public class DoctorScheduleController {
 	 * AIM: Add Schedule PATH: api/doctor/schedule/add METHOD: POST PARAMS:
 	 * doctor_id <- path variable, schedule<- request body EXPECTED: schedule
 	 */
-	@PostMapping("/add")
-	public ResponseEntity<?> addSchedule(Principal principal, @RequestBody DoctorSchedule doctorSchedule) {
-	    String username = principal.getName(); // Gets logged-in user's username (usually email)
-	    return ResponseEntity.status(HttpStatus.CREATED)
-	            .body(doctorScheduleService.addSchedule(username, doctorSchedule));
-	}
+	@PostMapping("/add/{doctorId}")
+    public ResponseEntity<DoctorSchedule> addDoctorSchedule(
+            @PathVariable int doctorId,
+            @RequestBody DoctorSchedule schedule) {
+        DoctorSchedule savedSchedule = doctorScheduleService.addSchedule(doctorId, schedule);
+        return ResponseEntity.ok(savedSchedule);
+    }
 
 	/*
 	 * AIM: Fetch all slots available by doctor PATH:
@@ -45,6 +50,12 @@ public class DoctorScheduleController {
 	@GetMapping("/get-by-doctor/{doctor_id}")
 	public ResponseEntity<?> getByDoctor(@PathVariable int doctor_id) {
 		return ResponseEntity.status(HttpStatus.OK).body(doctorScheduleService.getByDoctor(doctor_id));
+	}
+	
+	@GetMapping("/get-by-doctor")
+	public ResponseEntity<?> getByDoctor(Principal principal) {
+		String username=principal.getName();
+		return ResponseEntity.status(HttpStatus.OK).body(doctorScheduleService.getByDoctor(username));
 	}
 
 	/*
@@ -74,5 +85,9 @@ public class DoctorScheduleController {
 	public ResponseEntity<?> deleteSchedule(@PathVariable int schedule_id){
 		doctorScheduleService.deleteSchedule(schedule_id);
 		return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfull !!!");
+	}
+	@PutMapping("/editStatus/{recordId}")
+	public ResponseEntity<?> editStatus(@PathVariable int recordId,@RequestParam String status){
+		return ResponseEntity.status(HttpStatus.OK).body(doctorScheduleService.editStatus(recordId,status));
 	}
 }

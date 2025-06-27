@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Bed {
@@ -19,11 +20,8 @@ public class Bed {
 	
 	private String number;
 	
-	@Column(name = "room_number")
-	private String roomNumber;
-	
-	@Column(name = "ward_number")
-	private String wardNumber;
+	@ManyToOne
+	private Ward ward;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "bed_availability")
@@ -45,20 +43,13 @@ public class Bed {
 		this.number = number;
 	}
 
-	public String getRoomNumber() {
-		return roomNumber;
+
+	public Ward getWard() {
+		return ward;
 	}
 
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
-	}
-
-	public String getWardNumber() {
-		return wardNumber;
-	}
-
-	public void setWardNumber(String wardNumber) {
-		this.wardNumber = wardNumber;
+	public void setWard(Ward ward) {
+		this.ward = ward;
 	}
 
 	public BedAvailability getBedAvailability() {
