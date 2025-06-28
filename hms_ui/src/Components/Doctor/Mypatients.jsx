@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import "../../Componentcss/Doctor/Mypatients.css"; // Match your current styling structure
 
 function Mypatients() {
     const [patientArr, setPatientArr] = useState([]);
+    const navigate = useNavigate();
 
     const today = new Date().toISOString().split('T')[0];
-
-    const slot = {
-        ONE: "9:00 - 10:00",
-        TWO: "10:00 - 11:00",
-        THREE: "11:00 - 12:00",
-        FOUR: "12:00 - 1:00",
-        FIVE: "1:00 - 2:00",
-        SIX: "2:00 - 3:00",
-        SEVEN: "3:00 - 4:00",
-        EIGHT: "4:00 - 5:00"
-    };
-
-    const navigate = useNavigate();
 
     const getMypatients = async () => {
         try {
@@ -28,7 +17,7 @@ function Mypatients() {
             });
             setPatientArr(response.data);
         } catch (error) {
-            console.log(error);
+            console.error("Error fetching patients:", error);
         }
     };
 
@@ -42,15 +31,18 @@ function Mypatients() {
                 {patientArr.length > 0 ? (
                     patientArr.map((p, index) => (
                         <div className="doctor-card" key={index}
-                             onClick={() => navigate(`/doctor/viewMedicalrecords/${p.id}`)}>
-                            <div className="doctor-image"></div>
+                            onClick={() => navigate(`/doctor/viewMedicalrecords/${p.id}`)}>
+                            <div className="doctor-image">
+                                <img
+                                    src={p.imageUrl ? `/images/${p.imageUrl}` : "/images/default-avatar.png"}
+                                    alt="Patient"
+                                    className="doctor-thumbnail"
+                                    onError={(e) => { e.target.src = "/images/default-avatar.png"; }}
+                                />
+                            </div>
                             <div className="doctor-info">
                                 <p><strong>Name:</strong> {p.name}</p>
-                            </div>
-                            <div className="doctor-info">
-                                <p><strong>Age:</strong> {p.age}</p>
-                            </div>
-                            <div className="doctor-info">
+                                <p><strong>DOB:</strong> {p.dob}</p>
                                 <p><strong>Phone:</strong> {p.phone}</p>
                             </div>
                         </div>

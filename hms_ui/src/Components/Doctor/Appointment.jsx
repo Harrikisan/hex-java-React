@@ -15,6 +15,16 @@ function Appointment() {
     const allAppointments = useSelector(state => state.doctorAppointment.appointments);
     const dispatch = useDispatch();
 
+    const timeSlots = {
+        ONE: "9:00 - 10:00",
+        TWO: "10:00 - 11:00",
+        THREE: "11:00 - 12:00",
+        FOUR: "12:00 - 1:00",
+        FIVE: "1:00 - 2:00",
+        SIX: "2:00 - 3:00",
+        SEVEN: "3:00 - 4:00",
+        EIGHT: "4:00 - 5:00"
+    };
     useEffect(() => {
         getAppointmentsByDoctor(dispatch);
     }, [dispatch]);
@@ -90,6 +100,7 @@ function Appointment() {
                             <th>S.No</th>
                             <th>Date</th>
                             <th>Patient</th>
+                            <th>Slot</th>
                             <th>Status</th>
                             {category !== "FINISHED" && <th>Action</th>}
                             {category !== "FINISHED" && <th>Confirm</th>}
@@ -104,6 +115,7 @@ function Appointment() {
                                         <td>{index + 1}</td>
                                         <td>{a.date}</td>
                                         <td>{a.patientName}</td>
+                                        <td>{timeSlots[a.slot]}</td>
                                         <td>{a.appointmentStatus}</td>
 
                                         {category !== "FINISHED" && (

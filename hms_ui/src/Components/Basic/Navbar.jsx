@@ -17,7 +17,7 @@ function Navbar() {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     const name = localStorage.getItem('name');
-    const userID = localStorage.getItem('userID');
+    const userID = localStorage.getItem('userId');
 
     // If token exists but Redux is empty, restore Redux state
     if (token && !login) {

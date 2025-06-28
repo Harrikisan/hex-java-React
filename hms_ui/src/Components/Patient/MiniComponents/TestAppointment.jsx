@@ -12,21 +12,29 @@ function DoctorAppointment() {
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
-  const [appointments,setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
     if (!token || role !== "PATIENT") {
       navigate("/login");
     } else {
-      const getAppointments=async()=>{
-        const response=await axios.get('http://localhost:8080/api/test/appointment/get-by-patien_id',{
-          headers:{'Authorization': 'Bearer '+token}
+      const getAppointments = async () => {
+        const response = await axios.get('http://localhost:8080/api/test/appointment/get-by-patien_id', {
+          headers: { 'Authorization': 'Bearer ' + token }
         })
         setAppointments(response.data)
       }
       getAppointments()
     }
   }, [navigate, token, role, page, size]);
+
+  const editAppointment = async (id) => {
+    axios.put(`http://localhost:8080/api/test/appointment/edit/${id}`, {}, {
+      params: { status: "CANCELED" },
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(res => console.log(res.data))
+      .catch(error => console.log(error))
+  }
 
   return (
     <div className="appointment-table-container">
@@ -37,7 +45,6 @@ function DoctorAppointment() {
             <th>Date</th>
             <th>Lab</th>
             <th>Test</th>
-            <th>Edit</th>
             <th>Status</th>
             <th>Cancel</th>
           </tr>
@@ -50,12 +57,13 @@ function DoctorAppointment() {
                 <td>{a.date}</td>
                 <td>{a.lab.name}</td>
                 <td>{a.test.testType}</td>
-                <td>
-                  <button className="button">Edit</button>
-                </td>
                 <td>{a.status}</td>
                 <td>
-                  <button className="button">Cancel</button>
+                  {
+                    a.status === "CANCELED" ? "-" :
+                      <button className="button" onClick={() => editAppointment(a.id)}>
+                        Cancel
+                      </button>}
                 </td>
               </tr>
             ))

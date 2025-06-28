@@ -27,8 +27,6 @@ function Sidebar() {
                         onClick={() => navigate("/patient/trackAppointment")}>Track Appointment</li>
                         <li className={`menu-item ${isActive("/patient/medicalRecord") ? "active" : ""}`} 
                         onClick={() => navigate("/patient/medicalRecord")}>Medical Records</li>
-                        <li className={`menu-item ${isActive("/patient/appintmenthistory") ? "active" : ""}`} 
-                        onClick={() => navigate("/patient/appointmenthistory")}>AppointmnetHistory</li>
                     </ul>
                 );
 
@@ -54,8 +52,6 @@ function Sidebar() {
             default:
                 return (
                     <ul className="sidebar-menu">
-                        <li className={`menu-item ${isActive("/") ? "active" : ""}`} onClick={() => navigate("/")}>Home</li>
-                        <li className={`menu-item ${isActive("/patient/bookAppointment") ? "active" : ""}`} onClick={() => navigate("/patient/bookAppointment")}>Book Appointment</li>
                     </ul>
                 );
         }

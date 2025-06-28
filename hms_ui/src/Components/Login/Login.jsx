@@ -58,9 +58,9 @@ function Login() {
 
       switch (role) {
         case "PATIENT":
-          navigate("/patient")
+          navigate("/patient");break;
         case "DOCTOR":
-          navigate("/doctor")
+          navigate("/doctor");break;
       }
 
 

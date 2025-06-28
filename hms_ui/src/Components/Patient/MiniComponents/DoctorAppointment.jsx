@@ -10,6 +10,8 @@ function Appointment() {
   const [filterDate, setFilterDate] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [statusMap, setStatusMap] = useState({});
+  const [page,setPage]=useState(0);
+  const [size,setSize]=useState(100);
 
   const navigate = useNavigate();
   const allAppointments = useSelector(state => state.doctorAppointment.appointments);
@@ -17,8 +19,8 @@ function Appointment() {
   const token = useSelector(state => state.user.token);
 
   useEffect(() => {
-    getAppointments(dispatch)({ page: 0, size: 100 }, token);
-  }, [dispatch]);
+  getAppointments(dispatch)({ page, size }, token);
+}, [dispatch, token, page, size]);
 
   useEffect(() => {
     if (allAppointments && Array.isArray(allAppointments)) {
@@ -45,7 +47,7 @@ function Appointment() {
         }
       );
       console.log("Updated:", response.data);
-      getAppointmentsByDoctor(dispatch); // Refresh data
+      await getAppointments(dispatch)({ page, size }, token); 
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -91,8 +93,7 @@ function Appointment() {
               <th>Date</th>
               <th>Doctor</th>
               <th>Status</th>
-              {!(category === "FINISHED" || category === "CANCELED") && <th>Action</th>}
-              {!(category === "FINISHED" || category === "CANCELED") && <th>Confirm</th>}
+              {!(category === "FINISHED" || category === "CANCELED") ? <th>Cancel</th>:""}
             </tr>
           </thead>
           <tbody>
@@ -105,56 +106,21 @@ function Appointment() {
                     <td>{a.date}</td>
                     <td>{a.doctorName}</td>
                     <td>{a.appointmentStatus}</td>
-                    {!(category === "FINISHED" || category === "CANCELED") && (
-                      <>
-                        <td>
-                          <select
-                            className="dropdown-select"
-                            value={statusMap[appointmentId] || ''}
-                            onChange={(e) =>
-                              appointmentId &&
-                              setStatusMap(prev => ({
-                                ...prev,
-                                [appointmentId]: e.target.value
-                              }))
-                            }
-                          >
-                            <option value="">--Select--</option>
-                            <option value="CANCELED">Cancel</option>
-                          </select>
-                        </td>
-                        <td>
-                          <button
-                            className="button"
-                            onClick={() => {
-                              const selectedStatus = statusMap[appointmentId];
-                              if (selectedStatus && appointmentId) {
-                                editStatus(appointmentId, selectedStatus);
-                              } else {
-                                alert("Please select a valid status.");
-                              }
-                            }}
-                            disabled={!statusMap[appointmentId]}
-                          >
-                            Confirm
-                          </button>
-                        </td>
-                      </>
-                    )}
+                    {!(category === "FINISHED" || category === "CANCELED")?
+                    <td>
+                      <button className='button' onClick={()=>editStatus(a.appointmentId,"CANCELED")}>Cancel</button>
+                    </td>:""}
                   </tr>
                 );
               })
             ) : (
               <tr>
-                {[...Array(category === "FINISHED" || category === "CANCELED" ? 4 : 6)].map((_, i) => (
-                  <td key={i} style={{ textAlign: i === 0 ? "center" : "left" }}>
-                    {i === 0 && "No appointments found"}
-                  </td>
-                ))}
+                {"No appointments found"}
               </tr>
             )}
           </tbody>
         </table>
+        
       </div>
     </div>
   );

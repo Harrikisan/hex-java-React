@@ -10,9 +10,9 @@ function ViewMedicalRecords() {
     const token = useSelector(state => state.user.token);
 
     const [page, setPage] = useState(0);
-    const [size] = useState(3);
+    const [size] = useState(1);
     const [records, setRecords] = useState([]);
-    const [prescriptionsMap, setPrescriptionsMap] = useState({}); // map recordId => prescription[]
+    const [prescriptionsMap, setPrescriptionsMap] = useState({}); 
 
     const getMedicalRecord = async (id) => {
         try {
@@ -37,7 +37,7 @@ function ViewMedicalRecords() {
                     map[record.id] = response.data;
                 } catch (error) {
                     console.error(`Failed to fetch prescriptions for record ${record.id}:`, error);
-                    map[record.id] = []; // fallback to empty list
+                    map[record.id] = [];
                 }
             }
 

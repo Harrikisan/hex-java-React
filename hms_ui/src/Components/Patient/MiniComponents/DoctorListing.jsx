@@ -14,7 +14,7 @@ function DoctorListing() {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
 
-    const allDoctors = useSelector(state => state.doctors.doctors || []);
+    const allDoctors = useSelector(state => state.doctors.doctors);
 
     const checkLogin = () => {
         if (!localStorage.getItem('login')) {
@@ -120,7 +120,6 @@ function DoctorListing() {
                 <button
                     className="arrow-button"
                     onClick={() => setPage((prev) => prev + 1)}
-                    disabled={doctorList.length < size}
                 >
                     &#8594;
                 </button>

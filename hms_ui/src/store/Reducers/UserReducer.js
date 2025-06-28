@@ -5,7 +5,7 @@ const initializeState={
     token:"",
     role:"",
     login:false,
-    userid:""
+    userId:""
 }
 
 const UserReducer=(state=initializeState,action)=>{
