@@ -3,6 +3,7 @@ package com.casestudy.AmazeCare.Controller;
 import com.casestudy.AmazeCare.Model.BedBooking;
 import com.casestudy.AmazeCare.Service.BedBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,38 +22,38 @@ public class BedBookingController {
     public ResponseEntity<BedBooking> bookBed(@RequestBody BedBooking bedBooking,
                                               @PathVariable int patient_id,
                                               @PathVariable int bed_id) {
-        return ResponseEntity.ok(bedBookingService.bookBed(bedBooking, patient_id, bed_id));
+        return ResponseEntity.status(HttpStatus.OK).body(bedBookingService.bookBed(bedBooking, patient_id, bed_id));
     }
 
 
     @GetMapping("/get/{id}")
     public ResponseEntity<BedBooking> getById(@PathVariable int id) {
-        return ResponseEntity.ok(bedBookingService.getById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(bedBookingService.getById(id));
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<BedBooking>> getAll() {
-        return ResponseEntity.ok(bedBookingService.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(bedBookingService.getAll());
     }
 
     @GetMapping("/by-patient")
     public ResponseEntity<List<BedBooking>> getMyBedBookings(Principal principal) {
         String username = principal.getName(); // Assumes username is unique
-        return ResponseEntity.ok(bedBookingService.getByUsername(username));
+        return ResponseEntity.status(HttpStatus.OK).body(bedBookingService.getByUsername(username));
     }
 
     @GetMapping("/by-username")
     public ResponseEntity<List<BedBooking>> getByPrincipal(Principal principal) {
-        return ResponseEntity.ok(bedBookingService.getByUsername(principal.getName()));
+        return ResponseEntity.status(HttpStatus.OK).body(bedBookingService.getByUsername(principal.getName()));
     }
 
     @GetMapping("/by-bed/{bedId}")
     public ResponseEntity<List<BedBooking>> getByBedId(@PathVariable int bedId) {
-        return ResponseEntity.ok(bedBookingService.getByBedId(bedId));
+        return ResponseEntity.status(HttpStatus.OK).body(bedBookingService.getByBedId(bedId));
     }
 
     @PutMapping("/cancel/{bookingId}")
     public ResponseEntity<BedBooking> cancelBooking(@PathVariable int bookingId) {
-        return ResponseEntity.ok(bedBookingService.cancelBooking(bookingId));
+        return ResponseEntity.status(HttpStatus.OK).body(bedBookingService.cancelBooking(bookingId));
     }
 }

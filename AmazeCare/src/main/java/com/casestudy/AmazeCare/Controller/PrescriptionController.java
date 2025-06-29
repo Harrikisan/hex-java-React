@@ -22,7 +22,7 @@ public class PrescriptionController {
 	public ResponseEntity<List<Prescription>> addPrescriptionsBatch(@PathVariable int recordId,
 			@RequestBody List<Prescription> prescriptions) {
 		List<Prescription> savedList = prescriptionService.addPrescriptionsBatch(recordId, prescriptions);
-		return ResponseEntity.ok(savedList);
+		return ResponseEntity.status(HttpStatus.CREATED).body(savedList);
 	}
 
 	@GetMapping("/getByRecord")

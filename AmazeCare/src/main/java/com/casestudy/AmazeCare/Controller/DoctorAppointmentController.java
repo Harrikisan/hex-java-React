@@ -1,7 +1,7 @@
 package com.casestudy.AmazeCare.Controller;
 
 import java.security.Principal;
-import java.time.LocalDate;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.casestudy.AmazeCare.Enum.AppointmentStatus;
 import com.casestudy.AmazeCare.Model.DoctorAppointment;
 import com.casestudy.AmazeCare.Service.DoctorAppointmentService;
 
@@ -54,7 +52,7 @@ public class DoctorAppointmentController {
 
 	@GetMapping("/get-by-patient")
 	public ResponseEntity<?> getAppointmentByPatient(Principal principal, @RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "1000") int size) {
+			@RequestParam(defaultValue = "10") int size) {
 		String username = principal.getName();
 		return ResponseEntity.status(HttpStatus.OK).body(doctorAppointmentService.getAppointmentByPatient(username,page,size));
 	}
@@ -69,6 +67,18 @@ public class DoctorAppointmentController {
 	public ResponseEntity<?> getAppointmentById(@PathVariable int id) {
 	    DoctorAppointment appointment = doctorAppointmentService.getAppointmentById(id);
 	    return ResponseEntity.status(HttpStatus.OK).body(appointment);
+	}
+
+	@GetMapping("/count-by-patient")
+	public ResponseEntity<?> getAppointmentCountGroupedByPatient(Principal principal) {
+	    String username = principal.getName();
+	    return ResponseEntity.status(HttpStatus.OK).body(doctorAppointmentService.getAppointmentCountGroupedByPatient(username));
+	}
+
+	@GetMapping("/count-by-date")
+	public ResponseEntity<?> getAppointmentCountByDate(Principal principal) {
+	    String doctorUsername = principal.getName();
+	    return ResponseEntity.status(HttpStatus.OK).body(doctorAppointmentService.getAppointmentCountByDate(doctorUsername));
 	}
 
 

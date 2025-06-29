@@ -34,6 +34,7 @@ public class PatientService {
         user.setRole(Role.PATIENT);
         user = userService.addUser(user);
         patient.setUser(user);
+        patient.setUserStatus(UserStatus.ACTIVE);
         return patientRepository.save(patient);
     }
 

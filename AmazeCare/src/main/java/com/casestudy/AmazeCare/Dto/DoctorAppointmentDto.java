@@ -18,6 +18,25 @@ public class DoctorAppointmentDto {
     private AppointmentStatus appointmentStatus;
     private String patientName;
     private String doctorName;
+    private int doctorId;
+    private String slot;
+    
+
+    public String getSlot() {
+		return slot;
+	}
+
+	public void setSlot(String slot) {
+		this.slot = slot;
+	}
+
+	public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
 
     public int getAppointmentId() {
         return appointmentId;
@@ -73,10 +92,12 @@ public class DoctorAppointmentDto {
             DoctorAppointmentDto dto = new DoctorAppointmentDto();
             dto.setAppointmentId(d.getId());
             dto.setPatientId(d.getPatient().getId());
+            dto.setDoctorId(d.getDoctor().getId()); // ✅ add this line
             dto.setDoctorName(d.getDoctor().getName());
             dto.setPatientName(d.getPatient().getName());
             dto.setDate(d.getDate());
             dto.setAppointmentStatus(d.getStatus());
+            dto.setSlot(d.getDoctorSchedule().getSlot().toString());
             dtos.add(dto);
         }
         return dtos;

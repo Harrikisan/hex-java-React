@@ -19,7 +19,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	Optional<Doctor> getByUsername(String username);
 
 	@Query("select d from Doctor d where d.name=?1 and d.userStatus=ACTIVE")
-	List<Doctor> getByName(String doctorName,Pageable pageable);
+	Page<Doctor> getByName(String doctorName,Pageable pageable);
 
 	@Query("select d from Doctor d where d.userStatus=ACTIVE")
 	Page<Doctor> getAllActive(Pageable pageable);

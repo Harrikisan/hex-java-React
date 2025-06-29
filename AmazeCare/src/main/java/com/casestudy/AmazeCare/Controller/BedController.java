@@ -28,25 +28,23 @@ public class BedController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Bed> updateBed(@PathVariable int id, @RequestBody Bed bed) {
-        Bed updatedBed = bedService.updateBed(id, bed);
-        return new ResponseEntity<>(updatedBed, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(bedService.updateBed(id, bed));
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Bed>> getAllBeds() {
-        List<Bed> beds = bedService.getAllBeds();
-        return new ResponseEntity<>(beds, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(bedService.getAllBeds());
     }
 
     @GetMapping("/available")
     public ResponseEntity<List<Bed>> getAvailableBeds() {
         List<Bed> availableBeds = bedService.getBedsByAvailability(BedAvailability.AVAILABLE);
-        return new ResponseEntity<>(availableBeds, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(availableBeds);
     }
 
     @PutMapping("/changeAvailability/{id}")
     public ResponseEntity<Bed> changeAvailability(@PathVariable int id, @RequestParam BedAvailability availability) {
         Bed updatedBed = bedService.changeAvailability(id, availability);
-        return new ResponseEntity<>(updatedBed, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedBed);
     }
 }

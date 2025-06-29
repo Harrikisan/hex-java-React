@@ -108,7 +108,11 @@ public class TestAppointmentService {
 		return dates;
 	}
 
-	
-	
-	
+
+	public TestAppointment editStatus(String status, int appId) {
+		TestAppointment appointment=testAppointmentRepository.findById(appId)
+				.orElseThrow(()->new AppointmentNotFoundException("Appointment ID not found"));
+		appointment.setStatus(AppointmentStatus.valueOf(status));
+		return testAppointmentRepository.save(appointment);
+	}	
 }

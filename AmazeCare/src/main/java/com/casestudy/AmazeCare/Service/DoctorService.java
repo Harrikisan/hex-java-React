@@ -1,5 +1,6 @@
 package com.casestudy.AmazeCare.Service;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,8 +10,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -95,11 +97,11 @@ public class DoctorService {
 		return doctorListingDto.convertToDto(doctorRepository.getAllActive(pageable).getContent());
 	}
 
-	public List<DoctorListingDto> getByName(String name, int page, int size) {
-
-		Pageable pageable = PageRequest.of(page, size);
-		return doctorListingDto.convertToDto(doctorRepository.getByName(name, pageable));
+	public Page<Doctor> getByName(String name, int page, int size) {
+	    Pageable pageable = PageRequest.of(page, size);
+	    return doctorRepository.getByName(name, pageable);
 	}
+
 
 	public List<DoctorListingDto> getBySpecilization(String speclization, int page, int size) {
 		List<Doctor> doctor;

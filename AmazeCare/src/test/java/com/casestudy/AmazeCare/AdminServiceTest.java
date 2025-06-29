@@ -1,19 +1,16 @@
 package com.casestudy.AmazeCare;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.casestudy.AmazeCare.Enum.Role;
@@ -27,93 +24,81 @@ import com.casestudy.AmazeCare.Service.UserService;
 @SpringBootTest
 public class AdminServiceTest {
 
+    @InjectMocks
+    private AdminService adminService;
+
     @Mock
     private AdminRepository adminRepository;
 
     @Mock
     private UserService userService;
 
-    @InjectMocks
-    private AdminService adminService;
-
     private Admin admin;
     private User user;
 
     @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
+    public void init() {
         user = new User();
-        user.setUsername("admin1");
-        user.setPassword("secret");
+        user.setId(1);
+        user.setUsername("mainAdmin");
+        user.setPassword("mainPass");
         user.setRole(Role.ADMIN);
 
         admin = new Admin();
         admin.setId(1);
-        admin.setName("Admin Name");
-        admin.setEmail("admin@example.com");
-        admin.setPhone("1234567890");
-        admin.setAddress("Admin Street");
+        admin.setName("Main Admin");
+        admin.setEmail("mainadmin@example.com");
+        admin.setPhone("9999999999");
+        admin.setAddress("Main Admin Street");
         admin.setUser(user);
     }
 
     @Test
-    public void testAddAdmin_Success() {
-        when(userService.addUser(any(User.class))).thenReturn(user);
-        when(adminRepository.save(any(Admin.class))).thenReturn(admin);
+    public void testAddAdmin() {
+        when(userService.addUser(user)).thenReturn(user);
+        when(adminRepository.save(admin)).thenReturn(admin);
 
-        Admin result = adminService.addAdmin(admin);
-
-        assertNotNull(result);
-        assertEquals("Admin Name", result.getName());
-        assertEquals(Role.ADMIN, result.getUser().getRole());
-        verify(userService).addUser(any(User.class));
-        verify(adminRepository).save(any(Admin.class));
+        Admin savedAdmin = adminService.addAdmin(admin);
+        assertEquals(admin, savedAdmin);
     }
 
     @Test
-    public void testUpdateAdmin_Success() {
-        Admin updatedAdmin = new Admin();
-        updatedAdmin.setName("Updated Name");
-        updatedAdmin.setEmail("updated@example.com");
+    public void testUpdateAdmin() {
+        String username = "mainAdmin";
+        Admin adminToUpdate = new Admin();
+        adminToUpdate.setName("New Admin");
+        adminToUpdate.setEmail("newadmin@example.com");
+        adminToUpdate.setPhone("8888888888");
+        adminToUpdate.setAddress("New Admin Road");
 
-        when(adminRepository.getByUsername("admin1")).thenReturn(Optional.of(admin));
-        when(adminRepository.save(any(Admin.class))).thenReturn(admin);
+        when(adminRepository.getByUsername(username)).thenReturn(Optional.of(admin));
+        when(adminRepository.save(admin)).thenReturn(admin);
 
-        Admin result = adminService.updateAdmin("admin1", updatedAdmin);
+        Admin updated = adminService.updateAdmin(username, adminToUpdate);
+        assertEquals("New Admin", updated.getName());
+        assertEquals("newadmin@example.com", updated.getEmail());
+        assertEquals("8888888888", updated.getPhone());
+        assertEquals("New Admin Road", updated.getAddress());
 
-        assertEquals("Updated Name", result.getName());
-        assertEquals("updated@example.com", result.getEmail());
-        verify(adminRepository).getByUsername("admin1");
-        verify(adminRepository).save(admin);
+        AdminNotFoundException ex = assertThrows(AdminNotFoundException.class,
+                () -> adminService.updateAdmin("wrongAdmin", adminToUpdate));
+        assertEquals("Admin not available", ex.getMessage());
     }
 
     @Test
-    public void testUpdateAdmin_AdminNotFound() {
-        when(adminRepository.getByUsername("invalid_user")).thenReturn(Optional.empty());
+    public void testGetAdminByUsername() {
+        when(adminRepository.getByUsername("mainAdmin")).thenReturn(Optional.of(admin));
+        Admin found = adminService.getAdminByUsername("mainAdmin");
+        assertEquals(admin, found);
 
-        Admin updatedAdmin = new Admin();
-        updatedAdmin.setName("Updated");
-
-        assertThrows(AdminNotFoundException.class, () ->
-                adminService.updateAdmin("invalid_user", updatedAdmin));
+        AdminNotFoundException ex = assertThrows(AdminNotFoundException.class,
+                () -> adminService.getAdminByUsername("unknownUser"));
+        assertEquals("Admin not available", ex.getMessage());
     }
 
-    @Test
-    public void testGetAdminByUsername_Success() {
-        when(adminRepository.getByUsername("admin1")).thenReturn(Optional.of(admin));
-
-        Admin result = adminService.getAdminByUsername("admin1");
-
-        assertNotNull(result);
-        assertEquals("Admin Name", result.getName());
-        verify(adminRepository).getByUsername("admin1");
-    }
-
-    @Test
-    public void testGetAdminByUsername_AdminNotFound() {
-        when(adminRepository.getByUsername("unknown")).thenReturn(Optional.empty());
-
-        assertThrows(AdminNotFoundException.class, () ->
-                adminService.getAdminByUsername("unknown"));
+    @AfterEach
+    public void Delete() {
+        admin = null;
+        user = null;
     }
 }

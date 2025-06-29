@@ -44,7 +44,7 @@ public class NurseController {
 	public ResponseEntity<?> getNurseProfile(Principal principal) {
 	    String username = principal.getName();
 	    Nurse nurse = nurseService.getNurseByUsername(username);
-	    return ResponseEntity.ok(nurse);
+	    return ResponseEntity.status(HttpStatus.CREATED).body(nurse);
 	}
 
 }

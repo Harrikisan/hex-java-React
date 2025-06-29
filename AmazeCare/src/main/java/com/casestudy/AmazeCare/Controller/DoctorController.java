@@ -21,7 +21,6 @@ import com.casestudy.AmazeCare.Enum.UserStatus;
 import com.casestudy.AmazeCare.Model.Doctor;
 import com.casestudy.AmazeCare.Service.DoctorService;
 
-import io.jsonwebtoken.io.IOException;
 
 @RestController
 @RequestMapping("api/doctor")

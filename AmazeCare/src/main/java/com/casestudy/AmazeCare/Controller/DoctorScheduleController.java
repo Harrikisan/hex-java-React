@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.casestudy.AmazeCare.Model.Doctor;
 import com.casestudy.AmazeCare.Model.DoctorSchedule;
 import com.casestudy.AmazeCare.Service.DoctorScheduleService;
 
@@ -39,7 +38,7 @@ public class DoctorScheduleController {
             @PathVariable int doctorId,
             @RequestBody DoctorSchedule schedule) {
         DoctorSchedule savedSchedule = doctorScheduleService.addSchedule(doctorId, schedule);
-        return ResponseEntity.ok(savedSchedule);
+        return ResponseEntity.status(HttpStatus.OK).body(savedSchedule);
     }
 
 	/*

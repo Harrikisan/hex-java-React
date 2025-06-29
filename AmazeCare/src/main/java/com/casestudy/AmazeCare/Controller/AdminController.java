@@ -3,6 +3,7 @@ package com.casestudy.AmazeCare.Controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +20,18 @@ public class AdminController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addAdmin(@RequestBody Admin admin) {
-        return ResponseEntity.ok(adminService.addAdmin(admin));
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.addAdmin(admin));
     }
 
     @PutMapping("/update")
     public ResponseEntity<?> updateAdmin(@RequestBody Admin admin, Principal principal) {
         String username = principal.getName();
-        return ResponseEntity.ok(adminService.updateAdmin(username, admin));
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.updateAdmin(username, admin));
     }
     
     @GetMapping("/get")
     public ResponseEntity<?> getAdminProfile(Principal principal) {
         String username = principal.getName();
-        Admin admin = adminService.getAdminByUsername(username);
-        return ResponseEntity.ok(admin);
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.getAdminByUsername(username));
     }
 }

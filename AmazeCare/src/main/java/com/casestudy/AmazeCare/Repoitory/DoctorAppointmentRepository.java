@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.casestudy.AmazeCare.Enum.AppointmentStatus;
+import com.casestudy.AmazeCare.Model.Doctor;
 import com.casestudy.AmazeCare.Model.DoctorAppointment;
 import com.casestudy.AmazeCare.Model.Patient;
 
@@ -27,12 +28,5 @@ public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppoint
 
 	@Query("select da from DoctorAppointment da where da.doctor.id = ?1 and da.date = ?2 and da.status = ?3")
 	List<DoctorAppointment> getTodaysAppointment(int id, LocalDate date, AppointmentStatus status);
-
-
-
-
-
-	
-	
 
 }
