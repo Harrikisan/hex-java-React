@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ public class PatientService {
 
     @Autowired
     private PatientListingDto patientListingDto;
+    
+    private static final Logger logger = LoggerFactory.getLogger(DoctorAppointmentService.class);
 
     public Patient insertPatient(Patient patient) {
         User user = patient.getUser();
@@ -35,6 +39,7 @@ public class PatientService {
         user = userService.addUser(user);
         patient.setUser(user);
         patient.setUserStatus(UserStatus.ACTIVE);
+        logger.info("patient data before save: ",patient);
         return patientRepository.save(patient);
     }
 
@@ -56,6 +61,7 @@ public class PatientService {
         if (patient.getEmergencyContact() != null) oldPatient.setEmergencyContact(patient.getEmergencyContact());
         if (patient.getGender() != null) oldPatient.setGender(patient.getGender());
 
+        logger.info("patient data before update: ",patient);
         return patientRepository.save(oldPatient);
     }
 

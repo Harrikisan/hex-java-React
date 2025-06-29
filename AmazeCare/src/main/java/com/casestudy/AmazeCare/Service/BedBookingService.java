@@ -11,6 +11,9 @@ import com.casestudy.AmazeCare.Model.Patient;
 import com.casestudy.AmazeCare.Repoitory.BedBookingRepository;
 import com.casestudy.AmazeCare.Repoitory.BedRepository;
 import com.casestudy.AmazeCare.Repoitory.PatientRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +27,7 @@ public class BedBookingService {
     private PatientRepository patientRepository;
     private BedRepository bedRepository;
     
-    
+    private static final Logger logger = LoggerFactory.getLogger(DoctorAppointmentService.class);
 
     public BedBookingService(BedBookingRepository bedBookingRepository, PatientRepository patientRepository,
 			BedRepository bedRepository) {
@@ -46,7 +49,7 @@ public class BedBookingService {
         bedBooking.setBed(bed);
         bedBooking.setPatientType(PatientType.INPATIENT);
         bedBooking.setStatus(AppointmentStatus.APPOROVED);
-
+        logger.info("",bedBooking);
         return bedBookingRepository.save(bedBooking);
     }
 

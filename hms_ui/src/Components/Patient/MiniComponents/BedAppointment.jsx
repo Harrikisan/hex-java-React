@@ -60,7 +60,7 @@ function BedAppointment() {
           </tr>
         </thead>
         <tbody>
-          {appointments && appointments.length > 0 ? (
+          {appointments.length > 0 ? (
             appointments.map((a, index) => (
               <tr key={a.id || index}>
                 <td>{index + 1}</td>
@@ -80,7 +80,7 @@ function BedAppointment() {
             ))
           ) : (
             <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
+              <td style={{ textAlign: "center" }}>
                 No appointments found
               </td>
             </tr>

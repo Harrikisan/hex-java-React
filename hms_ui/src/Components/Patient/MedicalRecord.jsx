@@ -83,13 +83,13 @@ function TrackAppointment() {
                                                     <div><strong>Medicine:</strong> {pres.medicineName}</div>
                                                     <div><strong>Dosage:</strong> {pres.dosage}</div>
                                                     <div>
-                                                        {pres.morning && "Morning "}
-                                                        {pres.afternoon && "Afternoon "}
-                                                        {pres.night && "Night "}
+                                                        {pres.morning ? "Morning ":""}
+                                                        {pres.afternoon ? "Afternoon ":""}
+                                                        {pres.night ? "Night ":""}
                                                     </div>
                                                     <div>
-                                                        {pres.beforeMeal && "Before Meal "}
-                                                        {pres.afterMeal && "After Meal"}
+                                                        {pres.beforeMeal ? "Before Meal ":""}
+                                                        {pres.afterMeal ? "After Meal":""}
                                                     </div>
                                                 </li>
                                             ))}

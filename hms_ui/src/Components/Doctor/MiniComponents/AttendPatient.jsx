@@ -96,10 +96,6 @@ function AttendPatient() {
     };
 
     const addPrescriptionCard = () => {
-        if (!medicineName.trim() || !dosage.trim()) {
-            setMsg("Medicine name and dosage are required.");
-            return;
-        }
 
         const newPrescription = {
             medicineName,
@@ -111,7 +107,9 @@ function AttendPatient() {
             afterMeal
         };
 
-        setPrescriptions([...prescriptions, newPrescription]);
+        const temp=[...prescriptions]
+        temp.push(newPrescription)
+        setPrescriptions(temp);
         setMedicineName('');
         setDosage('');
         setMorning(false);
@@ -147,11 +145,11 @@ function AttendPatient() {
                 <div className="card attend-box">
                     <div className="card-header attend-header">Patient Consultation</div>
                     <div className="card-body attend-body">
-                        {msg && (
-                            <div className={`alert ${msg.includes("success") ? "alert-primary" : "alert-danger"}`}>
-                                {msg}
-                            </div>
-                        )}
+                        {
+                            msg!==""?
+                            msg.includes("success")?<div className="alert alert-primary">{msg}</div>:
+                            <div className="alert alert-primary">{msg}</div>:""
+                        }
 
                         <div className="mb-3 attend-group">
                             <label>Patient Name:</label>
@@ -170,8 +168,8 @@ function AttendPatient() {
                             {prescriptions.map((p, idx) => (
                                 <div key={idx} className="prescription-card">
                                     <p><strong>{p.medicineName}</strong> - {p.dosage}</p>
-                                    <p>{p.morning && "Morning "} {p.afternoon && "Afternoon "} {p.night && "Night "}</p>
-                                    <p>{p.beforeMeal && "Before Meal "} {p.afterMeal && "After Meal"}</p>
+                                    <p>{p.morning ? "Morning ":""} {p.afternoon ? "Afternoon ":""} {p.night ? "Night ":""}</p>
+                                    <p>{p.beforeMeal ? "Before Meal ":""} {p.afterMeal ? "After Meal":""}</p>
                                     <button
                                         className="btn btn-secondary mb-3 attend-button"
                                         onClick={() => removePrescription(idx)}

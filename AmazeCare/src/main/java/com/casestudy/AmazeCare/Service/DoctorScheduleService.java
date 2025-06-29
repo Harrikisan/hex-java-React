@@ -44,6 +44,7 @@ public class DoctorScheduleService {
 				.orElseThrow(() -> new DoctorNotFoundException("Doctor not available or active"));
 		// add to schedule
 		doctorSchedule.setDoctor(doctor);
+		logger.info("schedule",doctorSchedule);
 		// add to db
 		return doctorScheduleRepository.save(doctorSchedule);
 	}

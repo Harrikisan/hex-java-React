@@ -6,12 +6,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Appointment() {
-  const [category, setCategory] = useState('APPOROVED'); // default to Approved
+  const [category, setCategory] = useState('APPOROVED');
   const [filterDate, setFilterDate] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [statusMap, setStatusMap] = useState({});
-  const [page,setPage]=useState(0);
-  const [size,setSize]=useState(100);
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(100);
 
   const navigate = useNavigate();
   const allAppointments = useSelector(state => state.doctorAppointment.appointments);
@@ -19,19 +19,17 @@ function Appointment() {
   const token = useSelector(state => state.user.token);
 
   useEffect(() => {
-  getAppointments(dispatch)({ page, size }, token);
-}, [dispatch, token, page, size]);
+    getAppointments(dispatch)({ page, size }, token);
+  }, [dispatch, token, page, size]);
 
   useEffect(() => {
-    if (allAppointments && Array.isArray(allAppointments)) {
-      const filtered = allAppointments.filter((a) => {
-        const matchStatus = a.appointmentStatus === category;
-        const matchDate = !filterDate || a.date === filterDate;
-        return matchStatus && matchDate;
-      });
+    const filtered = allAppointments.filter(
+      (a) =>
+        a.appointmentStatus === category &&
+        (!filterDate || a.date === filterDate) // If filter date is not selected it wont filter
+    );
 
-      setAppointments(filtered);
-    }
+    setAppointments(filtered);
   }, [allAppointments, category, filterDate]);
 
   const editStatus = async (id, status) => {
@@ -47,7 +45,7 @@ function Appointment() {
         }
       );
       console.log("Updated:", response.data);
-      await getAppointments(dispatch)({ page, size }, token); 
+      await getAppointments(dispatch)({ page, size }, token);
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -93,7 +91,7 @@ function Appointment() {
               <th>Date</th>
               <th>Doctor</th>
               <th>Status</th>
-              {!(category === "FINISHED" || category === "CANCELED") ? <th>Cancel</th>:""}
+              {!(category === "FINISHED" || category === "CANCELED") ? <th>Cancel</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -106,10 +104,10 @@ function Appointment() {
                     <td>{a.date}</td>
                     <td>{a.doctorName}</td>
                     <td>{a.appointmentStatus}</td>
-                    {!(category === "FINISHED" || category === "CANCELED")?
-                    <td>
-                      <button className='button' onClick={()=>editStatus(a.appointmentId,"CANCELED")}>Cancel</button>
-                    </td>:""}
+                    {!(category === "FINISHED" || category === "CANCELED") ?
+                      <td>
+                        <button className='button' onClick={() => editStatus(a.appointmentId, "CANCELED")}>Cancel</button>
+                      </td> : ""}
                   </tr>
                 );
               })
@@ -120,7 +118,7 @@ function Appointment() {
             )}
           </tbody>
         </table>
-        
+
       </div>
     </div>
   );

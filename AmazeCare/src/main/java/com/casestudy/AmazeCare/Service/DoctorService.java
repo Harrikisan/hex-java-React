@@ -43,6 +43,7 @@ public class DoctorService {
 	public DoctorListingDto doctorListingDto;
 	public DoctorSearchDto doctorSearchDto;
 	public TodaysAppointmentDto todaysAppointmentDto;
+	
 
 	public DoctorService(DoctorRepository doctorRepository, DoctorAppointmentRepository doctorAppointmentRepository,
 			DoctorScheduleService doctorScheduleService, UserService userService, DoctorListingDto doctorListingDto,
@@ -74,6 +75,8 @@ public class DoctorService {
 		doctor.setUserStatus(UserStatus.ACTIVE);
 
 		doctor = doctorRepository.save(doctor);
+		
+		logger.info("doctor added: ",doctor);
 
 		for (Day day : Day.values()) {
 			for (Slot slot : Slot.values()) {

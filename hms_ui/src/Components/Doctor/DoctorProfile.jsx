@@ -59,19 +59,17 @@ function DoctorProfile() {
         };
 
         try {
-            // Update doctor info
             await axios.put("http://localhost:8080/api/doctor/update-info", updatedData, {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
             });
 
-            // Upload image if selected
             if (image) {
                 const formData = new FormData();
                 formData.append("file", image);
 
-                // ✅ Fixed URL
+                
                 await axios.post("http://localhost:8080/api/doctor/upload/profile-pic", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",

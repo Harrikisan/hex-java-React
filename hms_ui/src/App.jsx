@@ -14,15 +14,20 @@ import TodaysAppointments from "./Components/Doctor/TodaysAppointments";
 import AttendPatient from "./Components/Doctor/MiniComponents/AttendPatient";
 import PatientDashBoard from "./Components/Patient/PatientDashboard";
 import NurseDashBoard from "./Components/Nurse/NurseDashboard";
-import AdminDashboard from "./Components/Admin/AdminDashboard";
 import BookAppointment from "./Components/Patient/BookAppointment";
 import MedicalRecord from "./Components/Patient/MedicalRecord";
 import PatientProfile from "./Components/Patient/PatientProfile";
 import TrackAppointment from "./Components/Patient/TrackAppointment";
-import Home from "./Components/Basic/Home";
 import Signup from "./Components/Login/Signup";
 import DoctorBooking from "./Components/Patient/MiniComponents/DoctorBooking";
 import ViewMedicalRecords from "./Components/Doctor/MiniComponents/ViewMedicalRecords";
+import AddDoctor from "./Components/Admin/AddDoctor";
+import AddLab from "./Components/Admin/AddLab";
+import AddTest from "./Components/Admin/AddTest";
+import AddWard from "./Components/Admin/AddWard";
+import AddBed from "./Components/Admin/AddBed";
+import Home from "./Components/Basic/Home";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
 
 
 function App() {
@@ -44,7 +49,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
 
               {/* Home*/}
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home/>} />
 
               {/* Doctor routes*/}
               <Route path="/doctor">
@@ -74,7 +79,14 @@ function App() {
               <Route path="/nurse" element={<NurseDashBoard />} />
 
               {/* Admin routes */}
-              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin" >
+              <Route index element={<AdminDashboard/>}/>
+                <Route path="addDoctor" element={<AddDoctor/>} />
+                <Route path="addLab" element={<AddLab/>}/>
+                <Route path="addTest" element={<AddTest/>}/>
+                <Route path="addWard" element={<AddWard/>}/>
+                <Route path="addBed" element={<AddBed/>}/>
+              </Route>
 
             </Routes>
           </div>

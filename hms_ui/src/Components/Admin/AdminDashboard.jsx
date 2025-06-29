@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom"
+
 function AdminDashboard(){
 
-    return (
-        <div> Admin Dashboard</div>
-    )
+    const navigate=useNavigate()
+    navigate('/admin/addDoctor')
 }
+
 export default AdminDashboard

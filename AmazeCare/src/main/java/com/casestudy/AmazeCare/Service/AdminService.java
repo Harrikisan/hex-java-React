@@ -1,7 +1,7 @@
 package com.casestudy.AmazeCare.Service;
 
-import java.util.Optional;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +19,15 @@ public class AdminService {
 
     @Autowired
     private UserService userService;
+    
+    private static final Logger logger = LoggerFactory.getLogger(DoctorAppointmentService.class);
 
     public Admin addAdmin(Admin admin) {
         User user = admin.getUser();
         user.setRole(Role.ADMIN);
         user = userService.addUser(user);
         admin.setUser(user);
+        logger.info("",admin);
         return adminRepository.save(admin);
     }
 
@@ -45,7 +48,7 @@ public class AdminService {
         if (updatedAdmin.getAddress() != null && !updatedAdmin.getAddress().isBlank()) {
             existingAdmin.setAddress(updatedAdmin.getAddress());
         }
-
+        logger.info("",updatedAdmin);
         return adminRepository.save(existingAdmin);
     }
     

@@ -6,7 +6,7 @@ function Mypatients() {
     const [patientArr, setPatientArr] = useState([]);
     
 
-    const today = new Date().toISOString().split('T')[0];
+ const today = new Date().toLocaleDateString('en-CA');
     
     const slot = {
         ONE: "9:00 - 10:00",

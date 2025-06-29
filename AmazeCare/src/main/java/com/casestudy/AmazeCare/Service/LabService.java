@@ -2,6 +2,8 @@ package com.casestudy.AmazeCare.Service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.casestudy.AmazeCare.Enum.LabStatus;
@@ -13,6 +15,8 @@ import com.casestudy.AmazeCare.Repoitory.LabRepository;
 public class LabService {
 
 	private LabRepository labRepository;
+	
+	private static final Logger logger = LoggerFactory.getLogger(DoctorAppointmentService.class);
 
 	public LabService(LabRepository labRepository) {
 		super();
@@ -31,6 +35,7 @@ public class LabService {
 	public Lab editAvailability(int lab_id,LabStatus status) {
 		Lab lab=labRepository.findById(lab_id).orElseThrow(()->new LabNotFoundException("Lab not found"));
 		lab.setLabStatus(status);
+		logger.info("status edited: ",lab);
 		return labRepository.save(lab);
 	}
 	

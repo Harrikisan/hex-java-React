@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,8 @@ public class MedicalRecordService {
     private  DoctorRepository doctorRepository;
     private  DoctorAppointmentRepository appointmentRepository;
     private PatientRepository patientRepository;
+    
+    private static final Logger logger = LoggerFactory.getLogger(DoctorAppointmentService.class);
 
     
 
@@ -48,6 +52,8 @@ public class MedicalRecordService {
         record.setPatient(patient);
         record.setDoctor(doctor);
         record.setRecordDate(LocalDate.now());
+        
+        logger.info("record added: "+record);
         return medicalRecordRepository.save(record);
     }
 

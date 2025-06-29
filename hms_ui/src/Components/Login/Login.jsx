@@ -61,6 +61,8 @@ function Login() {
           navigate("/patient");break;
         case "DOCTOR":
           navigate("/doctor");break;
+        case "ADMIN":
+          navigate("/admin") 
       }
 
 

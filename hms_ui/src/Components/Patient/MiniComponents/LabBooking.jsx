@@ -217,15 +217,12 @@ function LabBooking() {
             onChange={(e) => {
               const dateVal = e.target.value;
               setSelectedDate(dateVal);
-              const weekday = new Date(dateVal).toLocaleDateString('en-US', { weekday: 'long' });
-              setDay(weekday.toUpperCase());
             }}>
             <option value="">Select Date</option>
             {dateArr.map((d, index) => (
               <option key={index} value={d}>{d}</option>
             ))}
           </select>
-          {selectedDate && <p>Selected Day: {day}</p>}
         </div>
 
         <div>

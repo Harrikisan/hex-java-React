@@ -43,11 +43,25 @@ function Sidebar() {
                         onClick={() => navigate("/doctor/mypatients")}>Mypatients</li>
                         <li className={`menu-item ${isActive("/doctor/todaysAppointments") ? "active" : ""}`} 
                         onClick={() => navigate("/doctor/todaysAppointments")}>TodaysAppointments</li>
-                        <li className={`menu-item ${isActive("/doctor/uploadDocument") ? "active" : ""}`} 
-                        onClick={() => navigate("/doctor/uploadDocument")}>UploadDocument</li>
+                        
                     </ul>
                 );
 
+            case "ADMIN":
+                return (
+                    <ul className="sidebar-menu">
+                        <li className={`menu-item ${isActive("/admin/addDoctor") ? "active" : ""}`} 
+                        onClick={() => navigate("/admin/addDoctor")}>Add Doctor</li>
+                        <li className={`menu-item ${isActive("/admin/addLab") ? "active" : ""}`} 
+                        onClick={() => navigate("/admin/addLab")}>Add Lab</li>
+                        <li className={`menu-item ${isActive("/admin/AddTest") ? "active" : ""}`} 
+                        onClick={() => navigate("/admin/AddTest")}>Add test</li>
+                        <li className={`menu-item ${isActive("/admin/addWard") ? "active" : ""}`} 
+                        onClick={() => navigate("/admin/addWard")}>Add Ward</li>
+                        <li className={`menu-item ${isActive("/admin/AddBed") ? "active" : ""}`} 
+                        onClick={() => navigate("/admin/AddBed")}>Add Bed</li>
+                    </ul>
+                );
 
             default:
                 return (

@@ -70,7 +70,8 @@ public class DoctorAppointmentService {
 		doctorAppointment.setPatient(patient);
 		doctorAppointment.setDoctor(doctor);
 		doctorAppointment.setDoctorSchedule(doctorSchedule);
-		doctorAppointment.setStatus(AppointmentStatus.APPOROVED); // Consider correcting typo if needed
+		doctorAppointment.setStatus(AppointmentStatus.APPOROVED); 
+		logger.info("appointment: ",doctorAppointment);
 
 		return doctorAppointmentRepository.save(doctorAppointment);
 	}
@@ -83,7 +84,7 @@ public class DoctorAppointmentService {
 				dates.add(date);
 			}
 		}
-		logger.info("Available dates for next 7 days: {}", dates);
+		logger.info("Available dates for next 21 days: ", dates);
 		return dates;
 	}
 
@@ -98,7 +99,7 @@ public class DoctorAppointmentService {
 
 		Pageable pageable = PageRequest.of(page, size);
 		List<DoctorAppointment> appointments = doctorAppointmentRepository.getByPatientId(patient.getId(), pageable);
-
+		logger.info("",appointments);
 		return doctorAppointmentDto.convertToDto(appointments);
 	}
 
@@ -116,23 +117,22 @@ public class DoctorAppointmentService {
 	}
 
 	public PatientAppointmentCountDto getAppointmentCountGroupedByPatient(String username) {
-	    // Step 1: Fetch doctor by username
+	    //Fetch doctor
 	    Doctor doctor = doctorRepository.getByUsername(username)
 	            .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
-	    // Step 2: Fetch all appointments for this doctor
+	    // Fetch all appointments for this doctor
 	    List<DoctorAppointment> appointments = doctorAppointmentRepository.getByDoctorId(doctor.getId());
 
-	    // Step 3: Initialize result arrays
+	    // Initialize
 	    List<Patient> patients = new ArrayList<>();
 	    List<Integer> count = new ArrayList<>();
 
-	    // Step 4: Group appointments by patient using just lists
+	    // Group appointments
 	    for (DoctorAppointment appointment : appointments) {
 	        Patient patient = appointment.getPatient();
 	        int index = -1;
 
-	        // Check if patient already in list
 	        for (int i = 0; i < patients.size(); i++) {
 	            if (patients.get(i).getId() == patient.getId()) {
 	                index = i;
@@ -141,28 +141,26 @@ public class DoctorAppointmentService {
 	        }
 
 	        if (index == -1) {
-	            // New patient
 	            patients.add(patient);
 	            count.add(1);
 	        } else {
-	            // Existing patient - increment count
 	            count.set(index, count.get(index) + 1);
 	        }
 	    }
 
-	    // Step 5: Return as DTO
+	    // Step 5: Return data
 	    return new PatientAppointmentCountDto(patients, count);
 	}
 	
 	public AppointmentDateCountDto getAppointmentCountByDate(String doctorUsername) {
-	    // Step 1: Get doctor by username
+	    // Get doctor 
 	    Doctor doctor = doctorRepository.getByUsername(doctorUsername)
 	            .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
-	    // Step 2: Get all appointments for this doctor
+	    //Get all appointments
 	    List<DoctorAppointment> appointments = doctorAppointmentRepository.getByDoctorId(doctor.getId());
 
-	    // Step 3: Prepare lists
+	    // initialize
 	    List<LocalDate> dates = new ArrayList<>();
 	    List<Long> counts = new ArrayList<>();
 

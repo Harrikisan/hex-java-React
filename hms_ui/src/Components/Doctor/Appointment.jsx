@@ -9,7 +9,7 @@ function Appointment() {
     const [category, setCategory] = useState('APPOROVED'); // default to Approved
     const [filterDate, setFilterDate] = useState('');
     const [appointments, setAppointments] = useState([]);
-    const [statusMap, setStatusMap] = useState({});
+    const [status, setStatus] = useState({});
 
     const navigate = useNavigate();
     const allAppointments = useSelector(state => state.doctorAppointment.appointments);
@@ -30,16 +30,15 @@ function Appointment() {
     }, [dispatch]);
 
     useEffect(() => {
-        if (allAppointments && Array.isArray(allAppointments)) {
-            const filtered = allAppointments.filter((a) => {
-                const matchStatus = a.appointmentStatus === category;
-                const matchDate = !filterDate || a.date === filterDate;
-                return matchStatus && matchDate;
-            });
+        const filtered = allAppointments.filter(
+            (a) =>
+                a.appointmentStatus === category &&
+                (!filterDate || a.date === filterDate) // If filter date is not selected it wont filter
+        );
 
-            setAppointments(filtered);
-        }
+        setAppointments(filtered);
     }, [allAppointments, category, filterDate]);
+
 
     const editStatus = async (id, status) => {
 
@@ -109,9 +108,8 @@ function Appointment() {
                     <tbody>
                         {appointments.length > 0 ? (
                             appointments.map((a, index) => {
-                                const appointmentId = a.id ?? a.appointmentId;
                                 return (
-                                    <tr key={appointmentId || index}>
+                                    <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{a.date}</td>
                                         <td>{a.patientName}</td>
@@ -123,13 +121,8 @@ function Appointment() {
                                                 <td>
                                                     <select
                                                         className="dropdown-select"
-                                                        value={statusMap[appointmentId] || ''}
                                                         onChange={(e) =>
-                                                            appointmentId &&
-                                                            setStatusMap(prev => ({
-                                                                ...prev,
-                                                                [appointmentId]: e.target.value
-                                                            }))
+                                                            setStatus(e.target.value)
                                                         }
                                                     >
                                                         <option value="">--Select--</option>
@@ -142,14 +135,8 @@ function Appointment() {
                                                     <button
                                                         className="button"
                                                         onClick={() => {
-                                                            const selectedStatus = statusMap[appointmentId];
-                                                            if (selectedStatus && appointmentId) {
-                                                                editStatus(appointmentId, selectedStatus);
-                                                            } else {
-                                                                alert("Please select a valid status.");
-                                                            }
+                                                                editStatus(a.appointmentId, status);
                                                         }}
-                                                        disabled={!statusMap[appointmentId]}
                                                     >
                                                         Confirm
                                                     </button>
@@ -161,7 +148,7 @@ function Appointment() {
                             })
                         ) : (
                             <tr>
-                                <td colSpan={category === "FINISHED" ? 4 : 6} style={{ textAlign: "center" }}>
+                                <td  style={{ textAlign: "center" }}>
                                     No appointments found
                                 </td>
                             </tr>

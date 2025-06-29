@@ -27,7 +27,6 @@ public class DoctorSchedule {
 	
 	private ScheduleStatus status;
 	
-	
 	@ManyToOne
 	private Doctor doctor;
 

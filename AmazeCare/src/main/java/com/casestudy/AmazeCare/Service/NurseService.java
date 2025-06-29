@@ -1,5 +1,7 @@
 package com.casestudy.AmazeCare.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class NurseService {
 	private final NurseRepository nurseRepository;
     private final UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(DoctorAppointmentService.class);
+    
     public NurseService(NurseRepository nurseRepository, UserService userService) {
         this.nurseRepository = nurseRepository;
         this.userService = userService;
@@ -26,6 +30,7 @@ public class NurseService {
 		user.setRole(Role.NURSE);
 		user=userService.addUser(user);
 		nurse.setUser(user);
+		logger.info("edited data before save",nurse);
 		return nurseRepository.save(nurse);
 	}
 
